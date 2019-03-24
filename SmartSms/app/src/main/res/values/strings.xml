@@ -4,7 +4,7 @@
     <string name="action_first">Zarządzanie regułami</string>
     <string name="action_second">Zarządzanie priorytetami</string>
     <string name="button_add_new">DODAJ NOWY</string>
-    <string name="my_cart">My Cart</string>
-    <string name="delete">DELETE</string>
+    <string name="my_cart">Moja lista</string>
+    <string name="delete">USUŃ</string>
 
 </resources>
