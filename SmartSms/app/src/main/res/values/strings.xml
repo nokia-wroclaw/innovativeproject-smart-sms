@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">SmartSms</string>
+    <string name="app_name">Przegląd</string>
+    <string name="action_settings">Ustawienia</string>
+    <string name="action_first">Zarządzanie regułami</string>
+    <string name="action_second">Zarządzanie priorytetami</string>
+    <string name="button_add_new">DODAJ NOWY</string>
+    <string name="my_cart">My Cart</string>
+    <string name="delete">DELETE</string>
+
 </resources>
