@@ -1,10 +1,17 @@
 <resources>
-    <string name="app_name">Przegląd</string>
-    <string name="action_settings">Ustawienia</string>
-    <string name="action_first">Zarządzanie regułami</string>
-    <string name="action_second">Zarządzanie priorytetami</string>
-    <string name="button_add_new">DODAJ NOWY</string>
-    <string name="my_cart">Moja lista</string>
-    <string name="delete">USUŃ</string>
+    <string name="app_name">SmartSMS</string>
+    <string name="main_title">Overview</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_first">Rule management</string>
+    <string name="action_second">Priority management</string>
+    <string name="button_add_new">ADD NEW</string>
+    <string name="my_cart">My list</string>
+    <string name="delete">DELETE</string>
+    <string name="priority">choose priority</string>
+    <string name="title_Back">Back</string>
+    <string name="title_OK"></string>
+    <string name="name">Name</string>
+    <string name="phone">Phone</string>
+    <string name="key_words">Key words</string>
 
 </resources>
