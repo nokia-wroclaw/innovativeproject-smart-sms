@@ -1,5 +1,6 @@
 package com.example.smartsms;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
     private RecyclerViewAdapter adapter;
     private List<String> dataToView = new LinkedList<>(Arrays.asList("tekst", "tekst 2", "tekst 3", "tekst 4", "tekst 5", "tekst 6", "tekst 7", "tekst 8", "tekst 9", "tekst", "tekst 2", "tekst 3", "tekst 4", "tekst 5", "tekst 6", "tekst 7", "tekst 8", "tekst 9"));
     private ConstraintLayout constraintLayout;
-    ArrayAdapter<String> listAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,28 +45,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
 
+    }
 
-
-        ArrayList<String> list=new ArrayList<>();
-        list.add("priority 1");
-        list.add("priority 2");
-        list.add("priority 3");
-        list.add("priority 4");
-        list.add("priority 5");
-        list.add("priority 6");
-        listAdapter=new ArrayAdapter(this,android.R.layout.simple_spinner_item,list);
-        listAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        final Button btn = findViewById(R.id.addNewButton);
-        btn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                setContentView(R.layout.rules_view);
-                Spinner spinerList;
-                spinerList=findViewById(R.id.spinner);
-                spinerList.setAdapter(listAdapter);
-            }
-        });
-
+    public void swapToRulesActivity(View v){
+        Intent i = new Intent(this,RulesActivity.class);
+        startActivity(i);
     }
 
     @Override

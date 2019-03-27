@@ -9,11 +9,11 @@
         android:id="@+id/addNewButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="631dp"
         android:background="@color/colorPrimaryDark"
         android:clickable="true"
         android:focusable="true"
         android:focusableInTouchMode="true"
+        android:onClick="swapToRulesActivity"
         android:text="@string/button_add_new"
         android:textColor="@android:color/background_light"
         android:textStyle="bold"
@@ -21,6 +21,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>
