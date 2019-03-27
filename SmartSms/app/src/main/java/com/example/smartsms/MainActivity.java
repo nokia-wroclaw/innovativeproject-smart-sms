@@ -52,6 +52,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
         startActivity(i);
     }
 
+    public void priorityMenuView(){
+        Intent i = new Intent(MainActivity.this, PriorityActivity.class);
+        startActivity(i);
+    }
+
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
         if (viewHolder instanceof RecyclerViewAdapter.MyViewHolder) {
@@ -81,10 +86,16 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        switch (id) {
+            case R.id.action_priority: {
+                priorityMenuView();
+                return true;
+            }
+            case R.id.action_rule: {
 
-        return super.onOptionsItemSelected(item);
+            }
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

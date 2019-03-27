@@ -13,5 +13,5 @@
     <string name="name">Rule name</string>
     <string name="phone">Phone</string>
     <string name="key_words">Key words</string>
-
+    <string name="PriorityName">PriorityName</string>
 </resources>

@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PriorityActivity">
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout"
+        android:layout_width="263dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.338">
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/PriorityName"
+            android:inputType="textShortMessage" />
+    </android.support.design.widget.TextInputLayout>
+
+    <HorizontalScrollView
+        android:id="@+id/imageScroll"
+        android:layout_width="395dp"
+        android:layout_height="99dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="50dp"
+        android:fillViewport="true"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="6dp">
+
+            <ImageButton
+                android:id="@+id/imageButton9"
+                android:layout_width="80dp"
+                android:layout_height="75dp"
+                android:layout_marginStart="16dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:contentDescription="@android:string/untitled"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@android:drawable/ic_dialog_info"
+                tools:layout_editor_absoluteY="183dp"
+                android:layout_marginLeft="16dp" />
+
+            <ImageButton
+                android:id="@+id/imageButton10"
+                android:layout_width="80dp"
+                android:layout_height="75dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorPrimary"
+                android:contentDescription="@android:string/untitled"
+                android:padding="6dp"
+                app:srcCompat="@android:drawable/ic_menu_help" />
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="80dp"
+                android:layout_height="75dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorPrimary"
+                android:contentDescription="@android:string/untitled"
+                android:padding="6dp"
+                app:srcCompat="@android:drawable/ic_lock_silent_mode_off" />
+
+            <ImageButton
+                android:id="@+id/imageButton18"
+                android:layout_width="80dp"
+                android:layout_height="75dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorPrimary"
+                android:contentDescription="@android:string/untitled"
+                android:padding="6dp"
+                app:srcCompat="@android:drawable/ic_dialog_email" />
+
+            <ImageButton
+                android:id="@+id/imageButton22"
+                android:layout_width="80dp"
+                android:layout_height="75dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:contentDescription="@android:string/untitled"
+                android:padding="6dp"
+                app:srcCompat="@android:drawable/ic_lock_idle_alarm" />
+
+            <ImageButton
+                android:id="@+id/imageButton13"
+                android:layout_width="80dp"
+                android:layout_height="75dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorPrimary"
+                android:contentDescription="@android:string/untitled"
+                android:padding="6dp"
+                app:srcCompat="@android:drawable/sym_action_chat" />
+
+            <ImageButton
+                android:id="@+id/imageButton21"
+                android:layout_width="80dp"
+                android:layout_height="75dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorPrimary"
+                android:contentDescription="@android:string/untitled"
+                android:padding="6dp"
+                app:srcCompat="@android:drawable/ic_lock_lock" />
+
+            <ImageButton
+                android:id="@+id/imageButton20"
+                android:layout_width="80dp"
+                android:layout_height="75dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorPrimary"
+                android:contentDescription="@android:string/untitled"
+                android:padding="6dp"
+                app:srcCompat="@android:drawable/btn_star_big_off" />
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="395dp"
+        android:layout_height="86dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/colorView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/blueButton"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
+                android:contentDescription="@android:string/untitled"
+                android:padding="6dp"
+                app:srcCompat="@android:color/holo_blue_dark"
+                tools:layout_editor_absoluteX="337dp"
+                tools:layout_editor_absoluteY="401dp" />
+
+            <ImageButton
+                android:id="@+id/greyButton"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:contentDescription="@android:string/untitled"
+                android:padding="6dp"
+                app:srcCompat="@android:color/darker_gray"
+                tools:layout_editor_absoluteX="488dp"
+                tools:layout_editor_absoluteY="336dp" />
+
+            <ImageButton
+                android:id="@+id/redButton"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:contentDescription="@android:string/untitled"
+                android:padding="6dp"
+                app:srcCompat="@android:color/holo_red_dark"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="383dp" />
+
+            <ImageButton
+                android:id="@+id/blackButton"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
+                android:contentDescription="@android:string/untitled"
+                android:padding="6dp"
+                app:srcCompat="@android:color/black"
+                tools:layout_editor_absoluteX="188dp"
+                tools:layout_editor_absoluteY="412dp" />
+
+            <ImageButton
+                android:id="@+id/greenButton"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
+                android:backgroundTint="@android:color/holo_green_dark"
+                android:contentDescription="@android:string/untitled"
+                android:padding="6dp"
+                app:srcCompat="@android:color/holo_green_dark"
+                tools:layout_editor_absoluteX="123dp"
+                tools:layout_editor_absoluteY="379dp" />
+
+            <ImageButton
+                android:id="@+id/orangeButton"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
+                android:contentDescription="@android:string/untitled"
+                android:padding="6dp"
+                app:srcCompat="@android:color/holo_orange_dark"
+                tools:layout_editor_absoluteX="260dp"
+                tools:layout_editor_absoluteY="408dp" />
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <Spinner
+        android:id="@+id/spinnerRingtone"
+        android:layout_width="329dp"
+        android:layout_height="69dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="46dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="120dp"
+        android:alwaysDrawnWithCache="false"
+        android:animateLayoutChanges="false"
+        android:animationCache="false"
+        android:spinnerMode="dropdown"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        style="@style/AlertDialog.AppCompat.Light"
+        android:layout_width="412dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="20dp"
+        android:padding="0dp"
+        app:itemBackground="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        >
+
+        <LinearLayout
+            android:layout_width="410dp"
+            android:layout_height="75dp"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/returnButton"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimaryDark"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:contentDescription="@android:string/cancel"
+                android:focusableInTouchMode="true"
+                android:padding="0dp"
+                app:srcCompat="@android:drawable/ic_menu_revert" />
+
+            <ImageButton
+                android:id="@+id/createButton"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimaryDark"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:contentDescription="@android:string/ok"
+                android:padding="0dp"
+                app:srcCompat="@android:drawable/ic_menu_add" />
+
+        </LinearLayout>
+
+    </android.support.design.widget.BottomNavigationView>
+
+
+</android.support.constraint.ConstraintLayout>
