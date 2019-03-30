@@ -1,20 +1,26 @@
 package com.example.smartsms;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,10 +30,11 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener{
     SqliteDB sqldb;
+ //   SmsReceiver smsReceiver;
     private RecyclerViewAdapter adapter;
     private List<String> dataToView = new LinkedList<>(Arrays.asList("tekst", "tekst 2", "tekst 3", "tekst 4", "tekst 5", "tekst 6", "tekst 7", "tekst 8", "tekst 9", "tekst", "tekst 2", "tekst 3", "tekst 4", "tekst 5", "tekst 6", "tekst 7", "tekst 8", "tekst 9"));
     private ConstraintLayout constraintLayout;
-
+    private int MY_PERMISSIONS_REQUEST_SMS_RECEIVE = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
         sqldb = new SqliteDB(this);
+
     }
 
     public void swapToRulesActivity(View v){
@@ -65,8 +73,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
 
             String name = dataToView.get(viewHolder.getAdapterPosition());
             adapter.removeItem(viewHolder.getAdapterPosition());
-
-            Snackbar snackbar = Snackbar
+              Snackbar snackbar = Snackbar
                     .make(constraintLayout, "Deleted: " + name, Snackbar.LENGTH_LONG);
             snackbar.setAction("OK", new View.OnClickListener() {
                 @Override
