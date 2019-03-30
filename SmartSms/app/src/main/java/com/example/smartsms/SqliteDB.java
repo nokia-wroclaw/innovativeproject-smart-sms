@@ -69,7 +69,7 @@ public class SqliteDB extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
 
         int value = 666;
-        String selectQuery = "SELECT ID from PRIORITY where NAME = " + rule.name;
+        String selectQuery = "SELECT ID from PRIORITY where NAME = " + rule.priority.name;
         Cursor cursor = db.rawQuery(selectQuery, null);
         if(cursor.moveToFirst()){
             value = cursor.getInt(0);
