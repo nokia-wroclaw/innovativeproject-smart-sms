@@ -55,8 +55,19 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
         sqldb = new SqliteDB(this);
 
+        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.RECEIVE_SMS},
+                MY_PERMISSIONS_REQUEST_SMS_RECEIVE);
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[]
+            permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == MY_PERMISSIONS_REQUEST_SMS_RECEIVE) {
+            Log.d("TAG", "My permission request sms received successfully");
+        }
+    }
+    
     public void swapToRulesActivity(View v){
         Intent i = new Intent(this,RulesActivity.class);
         startActivity(i);
