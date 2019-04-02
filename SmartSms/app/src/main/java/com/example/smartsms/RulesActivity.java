@@ -71,7 +71,9 @@ public class RulesActivity extends AppCompatActivity implements View.OnTouchList
         okButton.setOnClickListener(new  View.OnClickListener() {
 
             public void onClick (View v) {
-                addRule();return;
+              //  addRule();
+                Toast.
+                return;
             }
 
 
