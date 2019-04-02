@@ -28,7 +28,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <HorizontalScrollView
-        android:id="@+id/imageScroll"
+        android:id="@+id/imageScrollView"
         android:layout_width="395dp"
         android:layout_height="99dp"
         android:layout_marginStart="16dp"
@@ -45,89 +45,98 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:animateLayoutChanges="true"
+            android:id="@+id/imageLayout"
             android:gravity="center"
             android:orientation="horizontal"
             android:padding="6dp">
 
             <ImageButton
-                android:id="@+id/imageButton9"
+                android:id="@+id/imageButton1"
                 android:layout_width="80dp"
                 android:layout_height="75dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:backgroundTint="@color/colorPrimary"
                 android:contentDescription="@android:string/untitled"
+                android:onClick="imgClicked"
                 app:layout_constraintStart_toStartOf="parent"
                 app:srcCompat="@android:drawable/ic_dialog_info"
                 tools:layout_editor_absoluteY="183dp" />
 
             <ImageButton
-                android:id="@+id/imageButton10"
+                android:id="@+id/imageButton2"
                 android:layout_width="80dp"
                 android:layout_height="75dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/colorPrimary"
                 android:contentDescription="@android:string/untitled"
+                android:onClick="imgClicked"
                 android:padding="6dp"
                 app:srcCompat="@android:drawable/ic_menu_help" />
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/imageButton3"
                 android:layout_width="80dp"
                 android:layout_height="75dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/colorPrimary"
                 android:contentDescription="@android:string/untitled"
+                android:onClick="imgClicked"
                 android:padding="6dp"
                 app:srcCompat="@android:drawable/ic_lock_silent_mode_off" />
 
             <ImageButton
-                android:id="@+id/imageButton18"
+                android:id="@+id/imageButton4"
                 android:layout_width="80dp"
                 android:layout_height="75dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/colorPrimary"
                 android:contentDescription="@android:string/untitled"
+                android:onClick="imgClicked"
                 android:padding="6dp"
                 app:srcCompat="@android:drawable/ic_dialog_email" />
 
             <ImageButton
-                android:id="@+id/imageButton22"
-                android:layout_width="80dp"
-                android:layout_height="75dp"
-                android:layout_weight="1"
-                android:backgroundTint="@color/colorPrimaryDark"
-                android:contentDescription="@android:string/untitled"
-                android:padding="6dp"
-                app:srcCompat="@android:drawable/ic_lock_idle_alarm" />
-
-            <ImageButton
-                android:id="@+id/imageButton13"
+                android:id="@+id/imageButton5"
                 android:layout_width="80dp"
                 android:layout_height="75dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/colorPrimary"
                 android:contentDescription="@android:string/untitled"
+                android:onClick="imgClicked"
+                android:padding="6dp"
+                app:srcCompat="@mipmap/ic_person" />
+
+            <ImageButton
+                android:id="@+id/imageButton6"
+                android:layout_width="80dp"
+                android:layout_height="75dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorPrimary"
+                android:contentDescription="@android:string/untitled"
+                android:onClick="imgClicked"
                 android:padding="6dp"
                 app:srcCompat="@android:drawable/sym_action_chat" />
 
             <ImageButton
-                android:id="@+id/imageButton21"
+                android:id="@+id/imageButton7"
                 android:layout_width="80dp"
                 android:layout_height="75dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/colorPrimary"
                 android:contentDescription="@android:string/untitled"
+                android:onClick="imgClicked"
                 android:padding="6dp"
                 app:srcCompat="@android:drawable/ic_lock_lock" />
 
             <ImageButton
-                android:id="@+id/imageButton20"
+                android:id="@+id/imageButton8"
                 android:layout_width="80dp"
                 android:layout_height="75dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/colorPrimary"
                 android:contentDescription="@android:string/untitled"
+                android:onClick="imgClicked"
                 android:padding="6dp"
                 app:srcCompat="@android:drawable/btn_star_big_off" />
 
@@ -135,7 +144,7 @@
     </HorizontalScrollView>
 
     <HorizontalScrollView
-        android:id="@+id/horizontalScrollView"
+        android:id="@+id/colorScrollView"
         android:layout_width="395dp"
         android:layout_height="86dp"
         android:layout_marginStart="16dp"
@@ -147,7 +156,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:id="@+id/colorView"
+            android:id="@+id/colorLayout"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -158,6 +167,7 @@
                 android:layout_width="80dp"
                 android:layout_height="60dp"
                 android:contentDescription="@android:string/untitled"
+                android:onClick="colorClicked"
                 android:padding="6dp"
                 app:srcCompat="@android:color/holo_blue_dark"
                 tools:layout_editor_absoluteX="337dp"
@@ -169,6 +179,7 @@
                 android:layout_height="60dp"
                 android:layout_weight="1"
                 android:contentDescription="@android:string/untitled"
+                android:onClick="colorClicked"
                 android:padding="6dp"
                 app:srcCompat="@android:color/darker_gray"
                 tools:layout_editor_absoluteX="488dp"
@@ -180,6 +191,7 @@
                 android:layout_height="60dp"
                 android:layout_weight="1"
                 android:contentDescription="@android:string/untitled"
+                android:onClick="colorClicked"
                 android:padding="6dp"
                 app:srcCompat="@android:color/holo_red_dark"
                 tools:layout_editor_absoluteX="8dp"
@@ -190,6 +202,7 @@
                 android:layout_width="80dp"
                 android:layout_height="60dp"
                 android:contentDescription="@android:string/untitled"
+                android:onClick="colorClicked"
                 android:padding="6dp"
                 app:srcCompat="@android:color/black"
                 tools:layout_editor_absoluteX="188dp"
@@ -201,6 +214,7 @@
                 android:layout_height="60dp"
                 android:backgroundTint="@android:color/holo_green_dark"
                 android:contentDescription="@android:string/untitled"
+                android:onClick="colorClicked"
                 android:padding="6dp"
                 app:srcCompat="@android:color/holo_green_dark"
                 tools:layout_editor_absoluteX="123dp"
@@ -211,6 +225,7 @@
                 android:layout_width="80dp"
                 android:layout_height="60dp"
                 android:contentDescription="@android:string/untitled"
+                android:onClick="colorClicked"
                 android:padding="6dp"
                 app:srcCompat="@android:color/holo_orange_dark"
                 tools:layout_editor_absoluteX="260dp"
