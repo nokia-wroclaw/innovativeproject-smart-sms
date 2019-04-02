@@ -72,7 +72,7 @@ public class RulesActivity extends AppCompatActivity implements View.OnTouchList
 
             public void onClick (View v) {
               //  addRule();
-                Toast.
+                Toast.makeText(RulesActivity.this,"button doesn't work yet",Toast.LENGTH_LONG).show();
                 return;
             }
 
