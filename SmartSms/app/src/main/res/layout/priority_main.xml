@@ -58,7 +58,7 @@
                 android:layout_marginLeft="16dp"
                 android:backgroundTint="@color/colorPrimary"
                 android:contentDescription="@android:string/untitled"
-                android:onClick="imgClicked"
+                android:onClick="onClick"
                 app:layout_constraintStart_toStartOf="parent"
                 app:srcCompat="@android:drawable/ic_dialog_info"
                 tools:layout_editor_absoluteY="183dp" />
@@ -70,7 +70,7 @@
                 android:layout_weight="1"
                 android:backgroundTint="@color/colorPrimary"
                 android:contentDescription="@android:string/untitled"
-                android:onClick="imgClicked"
+                android:onClick="onClick"
                 android:padding="6dp"
                 app:srcCompat="@android:drawable/ic_menu_help" />
 
@@ -81,7 +81,7 @@
                 android:layout_weight="1"
                 android:backgroundTint="@color/colorPrimary"
                 android:contentDescription="@android:string/untitled"
-                android:onClick="imgClicked"
+                android:onClick="onClick"
                 android:padding="6dp"
                 app:srcCompat="@android:drawable/ic_lock_silent_mode_off" />
 
@@ -92,7 +92,7 @@
                 android:layout_weight="1"
                 android:backgroundTint="@color/colorPrimary"
                 android:contentDescription="@android:string/untitled"
-                android:onClick="imgClicked"
+                android:onClick="onClick"
                 android:padding="6dp"
                 app:srcCompat="@android:drawable/ic_dialog_email" />
 
@@ -103,7 +103,7 @@
                 android:layout_weight="1"
                 android:backgroundTint="@color/colorPrimary"
                 android:contentDescription="@android:string/untitled"
-                android:onClick="imgClicked"
+                android:onClick="onClick"
                 android:padding="6dp"
                 app:srcCompat="@mipmap/ic_person" />
 
@@ -114,7 +114,7 @@
                 android:layout_weight="1"
                 android:backgroundTint="@color/colorPrimary"
                 android:contentDescription="@android:string/untitled"
-                android:onClick="imgClicked"
+                android:onClick="onClick"
                 android:padding="6dp"
                 app:srcCompat="@android:drawable/sym_action_chat" />
 
@@ -125,7 +125,7 @@
                 android:layout_weight="1"
                 android:backgroundTint="@color/colorPrimary"
                 android:contentDescription="@android:string/untitled"
-                android:onClick="imgClicked"
+                android:onClick="onClick"
                 android:padding="6dp"
                 app:srcCompat="@android:drawable/ic_lock_lock" />
 
@@ -136,7 +136,7 @@
                 android:layout_weight="1"
                 android:backgroundTint="@color/colorPrimary"
                 android:contentDescription="@android:string/untitled"
-                android:onClick="imgClicked"
+                android:onClick="onClick"
                 android:padding="6dp"
                 app:srcCompat="@android:drawable/btn_star_big_off" />
 
@@ -167,7 +167,7 @@
                 android:layout_width="80dp"
                 android:layout_height="60dp"
                 android:contentDescription="@android:string/untitled"
-                android:onClick="colorClicked"
+                android:onClick="onClick"
                 android:padding="6dp"
                 app:srcCompat="@android:color/holo_blue_dark"
                 tools:layout_editor_absoluteX="337dp"
@@ -179,7 +179,7 @@
                 android:layout_height="60dp"
                 android:layout_weight="1"
                 android:contentDescription="@android:string/untitled"
-                android:onClick="colorClicked"
+                android:onClick="onClick"
                 android:padding="6dp"
                 app:srcCompat="@android:color/darker_gray"
                 tools:layout_editor_absoluteX="488dp"
@@ -191,7 +191,7 @@
                 android:layout_height="60dp"
                 android:layout_weight="1"
                 android:contentDescription="@android:string/untitled"
-                android:onClick="colorClicked"
+                android:onClick="onClick"
                 android:padding="6dp"
                 app:srcCompat="@android:color/holo_red_dark"
                 tools:layout_editor_absoluteX="8dp"
@@ -202,7 +202,7 @@
                 android:layout_width="80dp"
                 android:layout_height="60dp"
                 android:contentDescription="@android:string/untitled"
-                android:onClick="colorClicked"
+                android:onClick="onClick"
                 android:padding="6dp"
                 app:srcCompat="@android:color/black"
                 tools:layout_editor_absoluteX="188dp"
@@ -214,7 +214,7 @@
                 android:layout_height="60dp"
                 android:backgroundTint="@android:color/holo_green_dark"
                 android:contentDescription="@android:string/untitled"
-                android:onClick="colorClicked"
+                android:onClick="onClick"
                 android:padding="6dp"
                 app:srcCompat="@android:color/holo_green_dark"
                 tools:layout_editor_absoluteX="123dp"
@@ -225,7 +225,7 @@
                 android:layout_width="80dp"
                 android:layout_height="60dp"
                 android:contentDescription="@android:string/untitled"
-                android:onClick="colorClicked"
+                android:onClick="onClick"
                 android:padding="6dp"
                 app:srcCompat="@android:color/holo_orange_dark"
                 tools:layout_editor_absoluteX="260dp"
@@ -250,7 +250,6 @@
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"
         app:layout_constraintVertical_bias="1.0" />
 
     <android.support.design.widget.BottomNavigationView
