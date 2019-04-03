@@ -9,13 +9,9 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.provider.Settings;
-import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -24,13 +20,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Vector;
 
 public class PriorityActivity extends AppCompatActivity implements View.OnClickListener  {
@@ -38,24 +32,23 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
     private static final int MY_PERMISSION_REQUEST = 1;
     static final String EXTRA_GIGAWATTS = "com.example.smartsms.PriorityActivity";
 
-    ArrayList<String> ringtoneString;
-    ArrayAdapter<String> adapter;
-    ArrayAdapter<String> ringtoneListAdapter;
-
+    //Ringtones
     Spinner ringtoneSpinnerList;
+    ArrayList<String> ringtoneString;
+    ArrayAdapter<String> ringtoneListAdapter;
+    //Media Player
+    MediaPlayer mediaPlayer;
 
-    //Contaoiners For Buttons
-    Vector<ImageButton> imagButtonsVector;
+
+    //Containers For Buttons
+    Vector<ImageButton> imgButtonsVector;
     Vector<ImageButton> colorButtonsVector;
     Vector idSongsVector;
-    Vector<Uri> uriSongsVector;
 
     //Variables to create new Priority
     ImageButton imgSelectedButton;
     ImageButton colorSelectedButton;
 
-    //Media Player from raw
-    MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,12 +56,16 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.priority_main);
 
         //Initializing Variables
-        imagButtonsVector = new Vector<ImageButton>();
+        imgButtonsVector = new Vector<ImageButton>();
         colorButtonsVector = new Vector<ImageButton>();
         idSongsVector = new Vector();
-        uriSongsVector = new Vector<Uri>();
         ringtoneString=new ArrayList<>();
 
+        ImageButton goBackButton = (ImageButton) findViewById(R.id.returnPriorityButton);
+        goBackButton.setOnClickListener(this);
+
+        ImageButton createButton = (ImageButton) findViewById(R.id.createPriorityButton);
+        createButton.setOnClickListener(this);
 
         //Set Image Buttons, adding action listeners
         ViewGroup imgLayout = (ViewGroup) findViewById(R.id.imageLayout);
@@ -78,7 +75,7 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
             if (imageChild instanceof ImageButton) {
                 ImageButton imgButton = (ImageButton) imageChild;
                 imgButton.setOnClickListener(this);
-                imagButtonsVector.add(imgButton);
+                imgButtonsVector.add(imgButton);
             }
         }
 
@@ -106,12 +103,12 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
                         new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSION_REQUEST);
             }
         } else {
-            doStuff();
+            selectRingtone();
         }
 
     }
 
-    public void doStuff(){
+    public void selectRingtone(){
         ringtoneSpinnerList = (Spinner) findViewById(R.id.spinnerRingtone);
 
         getMusic();
@@ -134,20 +131,16 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
                 Toast.makeText(getBaseContext(), ringtoneString.get(position), Toast.LENGTH_SHORT).show();
 
                 long tmpId = (long)idSongsVector.elementAt(position);
-
                 Uri contentUri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,  tmpId );
-                //mediaPlayer = new MediaPlayer();
                 mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
                 try {
                     mediaPlayer.setDataSource(getApplicationContext(), contentUri);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                try {
                     mediaPlayer.prepare();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
                 mediaPlayer.start();
 
             }
@@ -168,15 +161,12 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
         if(songCursor != null && songCursor.moveToFirst()){
             int songTitle = songCursor.getColumnIndex(MediaStore.Audio.Media.TITLE);
             int songArtist = songCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST);
-           // songCursor.
-
 
             do {
 
                 String currentTitle = songCursor.getString(songTitle);
-                String currentArtist = songCursor.getString(songArtist);
+               // String currentArtist = songCursor.getString(songArtist);
                 long currentId = songCursor.getLong(songCursor.getColumnIndex(MediaStore.Audio.Media._ID));
-                uriSongsVector.add(android.provider.MediaStore.Audio.Media.getContentUri(currentTitle));
                 ringtoneString.add(currentTitle);
                 idSongsVector.add(currentId);
             }while(songCursor.moveToNext());
@@ -193,7 +183,7 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
                           Manifest.permission.READ_EXTERNAL_STORAGE )==PackageManager.PERMISSION_GRANTED){
                        Toast.makeText(this, "Permission Granted!", Toast.LENGTH_SHORT).show();
 
-                       doStuff();
+                       selectRingtone();
                    }
                    else{
                        Toast.makeText(this, "Permission Denaied!",Toast.LENGTH_SHORT).show();
@@ -206,28 +196,17 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
        }
     }
 
-    // public void onRequest
-
-
-    /*
-    public void imgClicked(View v){
-        int tmpId = v.getId();
-        for(int i = 0; i<imagButtonsVector.size(); i++){
-            if(tmpId==imagButtonsVector.get(i).getId()){
-                this.imgSelectedButton = imagButtonsVector.get(i);
-                imagButtonsVector.get(i).setBackgroundColor(Color.RED);
-                //imagButtonsVector.get(i);
-            }
-        }
-    }
-
-*/
-    void sddPriority(){
+    void addPriority(){
 
         ColorDrawable viewColor = (ColorDrawable)  colorSelectedButton.getBackground();
        // int colorId = viewColor.getColor();
         ///int color = colorSelectedButton.getBackground();
     }
+
+    void returnToMain(){
+        super.onBackPressed();
+    }
+
     @Override
     public void onClick(View v) {
 
@@ -236,15 +215,14 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
        for(int i = 0; i <this.colorButtonsVector.size(); i++){
            if(colorButtonsVector.get(i).getId()==tmpId) {
                this.colorSelectedButton = colorButtonsVector.get(i);
-              // mp.start();
            }
        }
 
-        for(int i = 0; i<imagButtonsVector.size(); i++){
-            if(tmpId==imagButtonsVector.get(i).getId()){
-                this.imgSelectedButton = imagButtonsVector.get(i);
-                imagButtonsVector.get(i).setBackgroundColor(Color.RED);
-                //imagButtonsVector.get(i);
+        for(int i = 0; i<imgButtonsVector.size(); i++){
+            if(tmpId==imgButtonsVector.get(i).getId()){
+                this.imgSelectedButton = imgButtonsVector.get(i);
+                imgButtonsVector.get(i).setBackgroundColor(Color.RED);
+                //imgButtonsVector.get(i);
             }
         }
     }

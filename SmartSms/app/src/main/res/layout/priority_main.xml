@@ -271,7 +271,7 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/returnButton"
+                android:id="@+id/returnPriorityButton"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_weight="1"
@@ -279,17 +279,19 @@
                 android:backgroundTint="@color/colorPrimaryDark"
                 android:contentDescription="@android:string/cancel"
                 android:focusableInTouchMode="true"
+                android:onClick="returnToMain"
                 android:padding="0dp"
                 app:srcCompat="@android:drawable/ic_menu_revert" />
 
             <ImageButton
-                android:id="@+id/createButton"
+                android:id="@+id/createPriorityButton"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_weight="1"
                 android:background="@color/colorPrimaryDark"
                 android:backgroundTint="@color/colorPrimaryDark"
                 android:contentDescription="@android:string/ok"
+                android:onClick="addPriority"
                 android:padding="0dp"
                 app:srcCompat="@android:drawable/ic_menu_add" />
 
