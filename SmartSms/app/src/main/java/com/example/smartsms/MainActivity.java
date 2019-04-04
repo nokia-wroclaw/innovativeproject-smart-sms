@@ -57,6 +57,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
 
         ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.RECEIVE_SMS},
                 MY_PERMISSIONS_REQUEST_SMS_RECEIVE);
+
+        //test DataBase
+        Priority priority = new Priority("dom","red","path","path");
+        Rule rule = new Rule("zasada1","stop","892189128",priority);
+        sqldb.addPriority(priority);
+        sqldb.addRule(rule);
     }
 
     @Override

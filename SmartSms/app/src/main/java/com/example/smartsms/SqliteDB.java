@@ -68,20 +68,23 @@ public class SqliteDB extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
-        int value = 666;
-        String selectQuery = "SELECT ID from PRIORITY where NAME = " + rule.priority.name;
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        if(cursor.moveToFirst()){
-            value = cursor.getInt(0);
+        String result_0=null;
+        String selectQuery = "SELECT ID from "+TABLE_NAME1+" where NAME = '" + rule.priority.name+"'";
+        Cursor cursor=(db).rawQuery(selectQuery,null);
+        while (cursor.moveToNext()) {
+            result_0=cursor.getString(0);
         }
 
-        contentValues.put(COL2_R, value);
-        contentValues.put(COL3_P, rule.phrase);
-        contentValues.put(COL4_P, rule.name);
-        contentValues.put(COL5_P, rule.phoneNumber);
+        Integer ID = Integer.valueOf(result_0);
+        contentValues.put(COL2_R,  ID);
+        contentValues.put(COL3_R, rule.phrase);
+        contentValues.put(COL4_R, rule.name);
+        contentValues.put(COL5_R, rule.phoneNumber);
 
-        long result = db.insert(TABLE_NAME1, null, contentValues);
+        long result = db.insert(TABLE_NAME2, null, contentValues);
         //if date as inserted incorrectly it will return -1
+        cursor.close();
+        (db).close();
         if (result == -1) {
             return false;
         } else {
