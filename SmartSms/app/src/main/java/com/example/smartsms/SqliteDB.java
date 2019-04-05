@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import java.util.ArrayList;
 import android.util.Log;
 
 
@@ -140,7 +141,74 @@ public class SqliteDB extends SQLiteOpenHelper {
         db.delete(TABLE_NAME2, "name = ?", new String[]{name});
     }
 
+    public ArrayList<Priority> getAllPriority()
+    {
+        ArrayList<Priority> list= new ArrayList<Priority>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        String name_0=null;
+        String color_1=null;
+        String pngPath_2=null;
+        String musicPath_3=null;
+        String selectQuery = "SELECT * from "+TABLE_NAME1;
+        Cursor cursor=(db).rawQuery(selectQuery,null);
+        while (cursor.moveToNext()) {
+            name_0=cursor.getString(1);
+            color_1=cursor.getString(2);
+            pngPath_2=cursor.getString(3);
+            musicPath_3=cursor.getString(4);
+            Priority priority = new Priority(name_0,color_1,pngPath_2,musicPath_3);
+            list.add(priority);
+        }
+        cursor.close();
+        (db).close();
+        return list;
+    }
 
+    public ArrayList<Rule> getAllRule()
+    {
+        ArrayList<Rule> list= new ArrayList<Rule>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        String r_ID_Priority_0=null;
+        String r_phrase_1=null;
+        String r_name_2=null;
+        String r_phone_3=null;
+
+        String selectQuery1 = "SELECT * from "+TABLE_NAME2;
+
+        String p_name_0=null;
+        String p_color_1=null;
+        String p_pngPath_2=null;
+        String p_musicPath_3=null;
+        Cursor cursor=(db).rawQuery(selectQuery1,null);
+        while (cursor.moveToNext()) {
+            r_ID_Priority_0=cursor.getString(1);
+            r_phrase_1=cursor.getString(2);
+            r_name_2=cursor.getString(3);
+            r_phone_3=cursor.getString(4);
+
+             p_name_0=null;
+             p_color_1=null;
+             p_pngPath_2=null;
+             p_musicPath_3=null;
+
+            String selectQuery2 = "SELECT * from "+TABLE_NAME1+" where ID = '" + r_ID_Priority_0 + "'";
+            Cursor cursor2=(db).rawQuery(selectQuery2,null);
+
+            while (cursor2.moveToNext()) {
+                p_name_0=cursor2.getString(1);
+                p_color_1=cursor2.getString(2);
+                p_pngPath_2=cursor2.getString(3);
+                p_musicPath_3=cursor2.getString(4);
+            }
+            Priority priority = new Priority(p_name_0,p_color_1,p_pngPath_2,p_musicPath_3);
+            Rule rule = new Rule (r_name_2,r_phrase_1,r_phone_3, priority);
+            list.add(rule);
+            cursor2.close();
+        }
+        cursor.close();
+        (db).close();
+        return list;
+    }
 
     public Rule getRule(String name)
     {

@@ -66,13 +66,15 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
         priority = new Priority("praca","red","path","path");
         sqldb.addPriority(priority);
         sqldb.addRule(rule);
-        priority = new Priority(null,null,null,null);
+        priority = null;
         priority = sqldb.getPriority("praca");
         sqldb.addPriority(priority);
         rule= new Rule("zasada7","stop","892189124",priority);
         sqldb.addRule(rule);
         rule = sqldb.getRule("kot");
         sqldb.addRule(rule);
+        ArrayList<Priority> pr = sqldb.getAllPriority();
+        ArrayList<Rule> rl = sqldb.getAllRule();
         sqldb.deleteRule("zasada7");
         sqldb.deletePriority("tak");
         sqldb.deletePriority("praca");
