@@ -14,6 +14,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,6 +38,9 @@ public class RulesActivity extends AppCompatActivity implements View.OnTouchList
     private  TextView name;
     private  TextView phone;
     private  TextView keyWords;
+    private TextInputLayout InputName;
+    private TextInputLayout InputPhone;
+    private TextInputLayout InputKeyWords;
     private Spinner spinerList;
     private ArrayList<String> list;
     private SqliteDB sqldb;
@@ -68,11 +73,15 @@ public class RulesActivity extends AppCompatActivity implements View.OnTouchList
         phone = (TextView) findViewById(R.id.editTextPhone);
         keyWords = (TextView) findViewById(R.id.editTextKeyWords);
 
+        InputName =  findViewById(R.id.textInputLayoutName);
+        InputPhone =  findViewById(R.id.textInputLayoutPhone);
+        InputKeyWords = findViewById(R.id.textInputLayoutKeyWord);
+
         okButton.setOnClickListener(new  View.OnClickListener() {
 
             public void onClick (View v) {
-              //  addRule();
-                Toast.makeText(RulesActivity.this,"button doesn't work yet",Toast.LENGTH_LONG).show();
+               addRule();
+             //
                 return;
             }
 
@@ -120,7 +129,7 @@ public class RulesActivity extends AppCompatActivity implements View.OnTouchList
                 Cursor c = getContentResolver().query(contactData, null, null, null, null);
                 if (c.moveToFirst()) {
 
-                    String contactName = c.getString(c.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+                   // String contactName = c.getString(c.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
                     String hasNumber = c.getString(c.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
 
                     if (Integer.valueOf(hasNumber) == 1) {
@@ -131,7 +140,7 @@ public class RulesActivity extends AppCompatActivity implements View.OnTouchList
                     }
 
 
-                    name.setText(contactName);
+                    //name.setText(contactName);
 
                 }
             }
@@ -143,18 +152,44 @@ public class RulesActivity extends AppCompatActivity implements View.OnTouchList
     //adding the rule to the database
     public void addRule()
     {
-        String text = spinerList.getSelectedItem().toString();
+        String text;
+        boolean check=true;
 
-        SQLiteDatabase db = sqldb.getWritableDatabase();
-        Cursor c = db.rawQuery("SELECT name From Priority WHERE name="+text, null);
 
-        String color=c.getString((c.getColumnIndex("color")));
-        String pngPath=c.getString((c.getColumnIndex("pngPath")));
-        String musicPath=c.getString((c.getColumnIndex("musicPath")));
-        Priority priority=new Priority(text,color,pngPath,musicPath);
+        if(name.getText().toString().length()<1)
+        {
+            InputName.setError("Field can't be empty");
+            check=false;
+        }
+
+       else if(sqldb.getRule(name.getText().toString()).name!=null)
+        {
+            InputName.setError("this Rule's name already exists");
+            check=false;
+        }
+        else {InputName.setError(null);}
+
+        if(phone.getText().toString().length()<1)
+        {
+            InputPhone.setError("Field can't be empty");
+            check=false;
+        }
+        else {InputPhone.setError(null);}
+
+        if((spinerList.getSelectedItem() ==null))
+        {
+            check=false;
+            Toast.makeText(RulesActivity.this,"There is no priority",Toast.LENGTH_LONG).show();
+        }
+
+        if(check==false){  System.out.println("ff");return;}
+
+        text = spinerList.getSelectedItem().toString();
+        Priority priority=sqldb.getPriority(text);
         Rule r=new Rule(name.getText().toString(),keyWords.getText().toString(),phone.getText().toString(),priority);
         sqldb.addRule(r);
 
+        Toast.makeText(RulesActivity.this,"Rule was added",Toast.LENGTH_LONG).show();
     }
 
 
