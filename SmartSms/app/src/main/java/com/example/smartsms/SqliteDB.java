@@ -50,48 +50,60 @@ public class SqliteDB extends SQLiteOpenHelper {
     }
 
     public boolean addPriority(Priority priority) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COL2_P, priority.name);
-        contentValues.put(COL3_P, priority.color);
-        contentValues.put(COL4_P, priority.pngPath);
-        contentValues.put(COL5_P, priority.musicPath);
-
-        long result = db.insert(TABLE_NAME1, null, contentValues);
-        //if date as inserted incorrectly it will return -1
-        (db).close();
-        if (result == -1) {
+        if(getPriority(priority.name).name!=null)
+        {
             return false;
-        } else {
-            return true;
+        }
+        else {
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(COL2_P, priority.name);
+            contentValues.put(COL3_P, priority.color);
+            contentValues.put(COL4_P, priority.pngPath);
+            contentValues.put(COL5_P, priority.musicPath);
+
+            long result = db.insert(TABLE_NAME1, null, contentValues);
+            //if date as inserted incorrectly it will return -1
+            (db).close();
+            if (result == -1) {
+                return false;
+            } else {
+                return true;
+            }
         }
     }
 
     public boolean addRule(Rule rule) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-
-        String result_0=null;
-        String selectQuery = "SELECT ID from "+TABLE_NAME1+" where NAME = '" + rule.priority.name+"'";
-        Cursor cursor=(db).rawQuery(selectQuery,null);
-        while (cursor.moveToNext()) {
-            result_0=cursor.getString(0);
-        }
-
-        Integer ID = Integer.valueOf(result_0);
-        contentValues.put(COL2_R,  ID);
-        contentValues.put(COL3_R, rule.phrase);
-        contentValues.put(COL4_R, rule.name);
-        contentValues.put(COL5_R, rule.phoneNumber);
-
-        long result = db.insert(TABLE_NAME2, null, contentValues);
-        //if date as inserted incorrectly it will return -1
-        cursor.close();
-        (db).close();
-        if (result == -1) {
+        if(getRule(rule.name).name!=null)
+        {
             return false;
-        } else {
-            return true;
+        }
+        else {
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues contentValues = new ContentValues();
+
+            String result_0 = null;
+            String selectQuery = "SELECT ID from " + TABLE_NAME1 + " where NAME = '" + rule.priority.name + "'";
+            Cursor cursor = (db).rawQuery(selectQuery, null);
+            while (cursor.moveToNext()) {
+                result_0 = cursor.getString(0);
+            }
+
+            Integer ID = Integer.valueOf(result_0);
+            contentValues.put(COL2_R, ID);
+            contentValues.put(COL3_R, rule.phrase);
+            contentValues.put(COL4_R, rule.name);
+            contentValues.put(COL5_R, rule.phoneNumber);
+
+            long result = db.insert(TABLE_NAME2, null, contentValues);
+            //if date as inserted incorrectly it will return -1
+            cursor.close();
+            (db).close();
+            if (result == -1) {
+                return false;
+            } else {
+                return true;
+            }
         }
     }
     public Priority getPriority(String name)

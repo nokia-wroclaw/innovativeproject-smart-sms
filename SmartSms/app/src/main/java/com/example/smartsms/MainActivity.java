@@ -60,6 +60,10 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
 
         //test DataBase
 
+        sqldb.deleteRule("zasada7");
+        sqldb.deletePriority("tak");
+        sqldb.deletePriority("praca");
+        sqldb.deleteRule("kot");
         Priority priority = new Priority("tak","nie","sth","path");
         Rule rule = new Rule("kot","start","892189129",priority);
         sqldb.addPriority(priority);
@@ -79,7 +83,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
         sqldb.deletePriority("tak");
         sqldb.deletePriority("praca");
         sqldb.deleteRule("kot");
-
     }
 
     @Override
