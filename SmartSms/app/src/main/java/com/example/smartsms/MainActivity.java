@@ -59,10 +59,25 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
                 MY_PERMISSIONS_REQUEST_SMS_RECEIVE);
 
         //test DataBase
-        Priority priority = new Priority("dom","red","path","path");
-        Rule rule = new Rule("zasada1","stop","892189128",priority);
+
+        Priority priority = new Priority("tak","nie","sth","path");
+        Rule rule = new Rule("kot","start","892189129",priority);
+        sqldb.addPriority(priority);
+        priority = new Priority("praca","red","path","path");
         sqldb.addPriority(priority);
         sqldb.addRule(rule);
+        priority = new Priority(null,null,null,null);
+        priority = sqldb.getPriority("praca");
+        sqldb.addPriority(priority);
+        rule= new Rule("zasada7","stop","892189124",priority);
+        sqldb.addRule(rule);
+        rule = sqldb.getRule("kot");
+        sqldb.addRule(rule);
+        sqldb.deleteRule("zasada7");
+        sqldb.deletePriority("tak");
+        sqldb.deletePriority("praca");
+        sqldb.deleteRule("kot");
+
     }
 
     @Override
