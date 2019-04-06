@@ -103,6 +103,10 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
         Intent i = new Intent(MainActivity.this, PriorityActivity.class);
         startActivity(i);
     }
+    public void RuleListView(){
+        Intent i = new Intent(MainActivity.this, ListOfRulesActivity.class);
+        startActivity(i);
+    }
 
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
@@ -138,6 +142,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
                 return true;
             }
             case R.id.action_rule: {
+                RuleListView();
+                return true;
 
             }
             default:
