@@ -5,8 +5,6 @@ import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -19,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -27,7 +26,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Vector;
 
-public class PriorityActivity extends AppCompatActivity implements View.OnClickListener  {
+public class PriorityActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final int MY_PERMISSION_REQUEST = 1;
     static final String EXTRA_GIGAWATTS = "com.example.smartsms.PriorityActivity";
@@ -36,6 +35,7 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
     Spinner ringtoneSpinnerList;
     ArrayList<String> ringtoneString;
     ArrayAdapter<String> ringtoneListAdapter;
+
     //Media Player
     MediaPlayer mediaPlayer;
 
@@ -49,11 +49,21 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
     ImageButton imgSelectedButton;
     ImageButton colorSelectedButton;
 
+    EditText text;
+
+    ImageButton goBackButton;
+    ImageButton createButton;
+
+    private SqliteDB dataBase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.priority_main);
+
+        dataBase = new SqliteDB(this);
+
+        mediaPlayer = null;
 
         //Initializing Variables
         imgButtonsVector = new Vector<ImageButton>();
@@ -61,11 +71,13 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
         idSongsVector = new Vector();
         ringtoneString=new ArrayList<>();
 
-        ImageButton goBackButton = (ImageButton) findViewById(R.id.returnPriorityButton);
+        goBackButton = (ImageButton) findViewById(R.id.returnPriorityButton);
         goBackButton.setOnClickListener(this);
 
-        ImageButton createButton = (ImageButton) findViewById(R.id.createPriorityButton);
+        createButton = (ImageButton) findViewById(R.id.createPriorityButton);
         createButton.setOnClickListener(this);
+
+        text = (EditText)findViewById(R.id.priorityNameText);
 
         //Set Image Buttons, adding action listeners
         ViewGroup imgLayout = (ViewGroup) findViewById(R.id.imageLayout);
@@ -88,6 +100,7 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
             if (colorChild instanceof ImageButton) {
                 ImageButton imgButton = (ImageButton) colorChild;
                 imgButton.setOnClickListener(this);
+                //imgButton.setFocusable(true);
                 colorButtonsVector.add(imgButton);
             }
         }
@@ -116,19 +129,28 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
         ringtoneListAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ringtoneSpinnerList.setAdapter(ringtoneListAdapter);
         ringtoneSpinnerList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+
         {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
 
+                boolean firstOpen =false;
+
+                if(mediaPlayer == null){
+                    firstOpen =true;
+                }
                 if(mediaPlayer != null){
                     mediaPlayer.pause();
                     mediaPlayer.release();
                     mediaPlayer = null;
                 }
 
+
                 mediaPlayer = new MediaPlayer();
 
-                Toast.makeText(getBaseContext(), ringtoneString.get(position), Toast.LENGTH_SHORT).show();
+                if(firstOpen==false) {
+                    Toast.makeText(getBaseContext(), ringtoneString.get(position), Toast.LENGTH_SHORT).show();
+                }
 
                 long tmpId = (long)idSongsVector.elementAt(position);
                 Uri contentUri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,  tmpId );
@@ -141,8 +163,9 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
                     e.printStackTrace();
                 }
 
-                mediaPlayer.start();
-
+                if(firstOpen==false) {
+                    mediaPlayer.start();
+                }
             }
 
             @Override
@@ -160,7 +183,7 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
         Cursor songCursor = contentResolver.query(songUri, null,null,null,null,null);
         if(songCursor != null && songCursor.moveToFirst()){
             int songTitle = songCursor.getColumnIndex(MediaStore.Audio.Media.TITLE);
-            int songArtist = songCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST);
+            //int songArtist = songCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST);
 
             do {
 
@@ -198,14 +221,28 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
 
     void addPriority(){
 
-        ColorDrawable viewColor = (ColorDrawable)  colorSelectedButton.getBackground();
-       // int colorId = viewColor.getColor();
-        ///int color = colorSelectedButton.getBackground();
+        String colorCode = (String)this.colorSelectedButton.getTag();
+
+        String imgCode= (String)this.imgSelectedButton.getTag();
+
+        String ringtoneName =  ringtoneSpinnerList.getSelectedItem().toString();
+        int ringtoneId =  ringtoneString.indexOf(ringtoneName);
+        String ringtonePath = idSongsVector.get(ringtoneId).toString();
+
+        String textName = text.getText().toString();
+
+        //Adding priority
+       Priority priority = new Priority(textName,colorCode,imgCode,ringtonePath);
+
+       if(dataBase.addPriority(priority)==true){
+           Toast.makeText(getBaseContext(), "Priority Was Added Sucessfully!", Toast.LENGTH_SHORT).show();
+       }
     }
 
-    void returnToMain(){
+    public void returnToMainButton(){
         super.onBackPressed();
     }
+
 
     @Override
     public void onClick(View v) {
@@ -214,16 +251,27 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
 
        for(int i = 0; i <this.colorButtonsVector.size(); i++){
            if(colorButtonsVector.get(i).getId()==tmpId) {
+
+              // colorButtonsVector.get(i).findFocus().clearFocus();
                this.colorSelectedButton = colorButtonsVector.get(i);
+             // colorButtonsVector.get(i).requestFocus();
+
            }
        }
 
         for(int i = 0; i<imgButtonsVector.size(); i++){
             if(tmpId==imgButtonsVector.get(i).getId()){
                 this.imgSelectedButton = imgButtonsVector.get(i);
-                imgButtonsVector.get(i).setBackgroundColor(Color.RED);
-                //imgButtonsVector.get(i);
             }
         }
+
+        if(tmpId == this.goBackButton.getId()){
+            this.returnToMainButton();
+        }
+
+        if(tmpId == this.createButton.getId()){
+            addPriority();
+        }
     }
+
 }

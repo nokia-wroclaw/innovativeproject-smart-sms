@@ -11,6 +11,6 @@ public class Priority {
         this.name=name;
         this.color=color;
         this.pngPath=pngPath;
-        this.musicPath=pngPath;
+        this.musicPath=musicPath;
     }
 }

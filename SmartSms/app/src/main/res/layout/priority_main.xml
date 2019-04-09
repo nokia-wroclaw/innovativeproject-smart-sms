@@ -21,6 +21,7 @@
         app:layout_constraintVertical_bias="0.338">
 
         <android.support.design.widget.TextInputEditText
+            android:id="@+id/priorityNameText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/PriorityName"
@@ -60,6 +61,7 @@
                 android:contentDescription="@android:string/untitled"
                 android:onClick="onClick"
                 app:layout_constraintStart_toStartOf="parent"
+                android:tag="@android:drawable/ic_dialog_info"
                 app:srcCompat="@android:drawable/ic_dialog_info"
                 tools:layout_editor_absoluteY="183dp" />
 
@@ -72,6 +74,7 @@
                 android:contentDescription="@android:string/untitled"
                 android:onClick="onClick"
                 android:padding="6dp"
+                android:tag="@android:drawable/ic_menu_help"
                 app:srcCompat="@android:drawable/ic_menu_help" />
 
             <ImageButton
@@ -83,6 +86,7 @@
                 android:contentDescription="@android:string/untitled"
                 android:onClick="onClick"
                 android:padding="6dp"
+                android:tag="@android:drawable/ic_lock_silent_mode_off"
                 app:srcCompat="@android:drawable/ic_lock_silent_mode_off" />
 
             <ImageButton
@@ -94,6 +98,7 @@
                 android:contentDescription="@android:string/untitled"
                 android:onClick="onClick"
                 android:padding="6dp"
+                android:tag="@android:drawable/ic_dialog_email"
                 app:srcCompat="@android:drawable/ic_dialog_email" />
 
             <ImageButton
@@ -105,6 +110,7 @@
                 android:contentDescription="@android:string/untitled"
                 android:onClick="onClick"
                 android:padding="6dp"
+                android:tag="@mipmap/ic_person"
                 app:srcCompat="@mipmap/ic_person" />
 
             <ImageButton
@@ -116,6 +122,7 @@
                 android:contentDescription="@android:string/untitled"
                 android:onClick="onClick"
                 android:padding="6dp"
+                android:tag="@android:drawable/sym_action_chat"
                 app:srcCompat="@android:drawable/sym_action_chat" />
 
             <ImageButton
@@ -127,6 +134,7 @@
                 android:contentDescription="@android:string/untitled"
                 android:onClick="onClick"
                 android:padding="6dp"
+                android:tag="@android:drawable/ic_lock_lock"
                 app:srcCompat="@android:drawable/ic_lock_lock" />
 
             <ImageButton
@@ -138,6 +146,7 @@
                 android:contentDescription="@android:string/untitled"
                 android:onClick="onClick"
                 android:padding="6dp"
+                android:tag="@android:drawable/btn_star_big_off"
                 app:srcCompat="@android:drawable/btn_star_big_off" />
 
         </LinearLayout>
@@ -170,6 +179,7 @@
                 android:onClick="onClick"
                 android:padding="6dp"
                 app:srcCompat="@android:color/holo_blue_dark"
+                android:tag="@android:color/holo_blue_dark"
                 tools:layout_editor_absoluteX="337dp"
                 tools:layout_editor_absoluteY="401dp" />
 
@@ -182,6 +192,7 @@
                 android:onClick="onClick"
                 android:padding="6dp"
                 app:srcCompat="@android:color/darker_gray"
+                android:tag="@android:color/darker_gray"
                 tools:layout_editor_absoluteX="488dp"
                 tools:layout_editor_absoluteY="336dp" />
 
@@ -194,6 +205,7 @@
                 android:onClick="onClick"
                 android:padding="6dp"
                 app:srcCompat="@android:color/holo_red_dark"
+                android:tag="@android:color/holo_red_dark"
                 tools:layout_editor_absoluteX="8dp"
                 tools:layout_editor_absoluteY="383dp" />
 
@@ -205,6 +217,7 @@
                 android:onClick="onClick"
                 android:padding="6dp"
                 app:srcCompat="@android:color/black"
+                android:tag="@android:color/black"
                 tools:layout_editor_absoluteX="188dp"
                 tools:layout_editor_absoluteY="412dp" />
 
@@ -216,6 +229,7 @@
                 android:contentDescription="@android:string/untitled"
                 android:onClick="onClick"
                 android:padding="6dp"
+                android:tag="@android:color/holo_green_dark"
                 app:srcCompat="@android:color/holo_green_dark"
                 tools:layout_editor_absoluteX="123dp"
                 tools:layout_editor_absoluteY="379dp" />
@@ -228,6 +242,7 @@
                 android:onClick="onClick"
                 android:padding="6dp"
                 app:srcCompat="@android:color/holo_orange_dark"
+                android:tag="@android:color/holo_orange_dark"
                 tools:layout_editor_absoluteX="260dp"
                 tools:layout_editor_absoluteY="408dp" />
 
@@ -279,7 +294,7 @@
                 android:backgroundTint="@color/colorPrimaryDark"
                 android:contentDescription="@android:string/cancel"
                 android:focusableInTouchMode="true"
-                android:onClick="returnToMain"
+                android:onClick="onClick"
                 android:padding="0dp"
                 app:srcCompat="@android:drawable/ic_menu_revert" />
 
@@ -291,7 +306,7 @@
                 android:background="@color/colorPrimaryDark"
                 android:backgroundTint="@color/colorPrimaryDark"
                 android:contentDescription="@android:string/ok"
-                android:onClick="addPriority"
+                android:onClick="onClick"
                 android:padding="0dp"
                 app:srcCompat="@android:drawable/ic_menu_add" />
 
