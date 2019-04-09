@@ -7,15 +7,25 @@ import android.os.Bundle;
 import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
+import java.util.*;
 
 public class SmsReceiver extends BroadcastReceiver {
 
-
+    SqliteDB db;
     private static final String SMS_RECEIVED = "android.provider.Telephony.SMS_RECEIVED";
+    private static MessageListener mListener;
 
+    public static void bindListener(MessageListener listener){
+        mListener = listener;
+    }
 
     @Override
     public void onReceive(Context context, Intent intent) {
+
+        db = new SqliteDB(context);
+        ArrayList<Rule> rules = db.getAllRule();
+        abortBroadcast();
+
         Bundle intentExtras = intent.getExtras();
         if (intentExtras != null) {
             Object[] sms = (Object[]) intentExtras.get("pdus");
@@ -25,11 +35,16 @@ public class SmsReceiver extends BroadcastReceiver {
 
                 String smsBody = smsMessage.getMessageBody().toString();
                 String address = smsMessage.getOriginatingAddress();
+                for(Rule r : rules){
+                    if(r.phoneNumber.equals(address)){
 
+                        mListener.messageReceived(r);
+                    }
+
+                }
                 smsMessageStr += "SMS From: " + address + "\n";
                 smsMessageStr += smsBody + "\n";
             }
-            Toast.makeText(context, smsMessageStr, Toast.LENGTH_SHORT).show();
 
         }
     }

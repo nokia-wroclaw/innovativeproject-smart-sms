@@ -2,11 +2,9 @@ package com.example.smartsms;
 
 import android.Manifest;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -17,34 +15,30 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.Spinner;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener{
+public class MainActivity extends AppCompatActivity implements MessageListener, RecyclerItemTouchHelper.RecyclerItemTouchHelperListener{
     SqliteDB sqldb;
- //   SmsReceiver smsReceiver;
-    private RecyclerViewAdapter adapter;
-    private List<String> dataToView = new LinkedList<>(Arrays.asList("tekst", "tekst 2", "tekst 3", "tekst 4", "tekst 5", "tekst 6", "tekst 7", "tekst 8", "tekst 9", "tekst", "tekst 2", "tekst 3", "tekst 4", "tekst 5", "tekst 6", "tekst 7", "tekst 8", "tekst 9"));
-    private ConstraintLayout constraintLayout;
+    //SmsReceiver smsReceiver;
+    RecyclerViewAdapter adapter;
+    List<Rule> dataToView = new LinkedList<>();//new LinkedList<>(Arrays.asList("tekst", "tekst 2", "tekst 3", "tekst 4", "tekst 5", "tekst 6", "tekst 7", "tekst 8", "tekst 9", "tekst", "tekst 2", "tekst 3", "tekst 4", "tekst 5", "tekst 6", "tekst 7", "tekst 8", "tekst 9"));
+    private LinearLayout linearLayout;
     private int MY_PERMISSIONS_REQUEST_SMS_RECEIVE = 10;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_main);
         //Toolbar toolbar = findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
-
-        constraintLayout = findViewById(R.id.coordinator_layout);
+        linearLayout = findViewById(R.id.coordinator_layout);
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -58,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
         ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.RECEIVE_SMS},
                 MY_PERMISSIONS_REQUEST_SMS_RECEIVE);
 
+        SmsReceiver.bindListener(this);
         //test DataBase
 
         sqldb.deleteRule("zasada7");
@@ -75,6 +70,10 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
         sqldb.addPriority(priority);
         rule= new Rule("zasada7","stop","892189124",priority);
         sqldb.addRule(rule);
+        rule= new Rule("zasada","stop","123456789",priority);
+        sqldb.addRule(rule);
+        rule= new Rule("cos","stop","987654321",priority);
+        sqldb.addRule(rule);
         rule = sqldb.getRule("kot");
         sqldb.addRule(rule);
         ArrayList<Priority> pr = sqldb.getAllPriority();
@@ -83,6 +82,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
         sqldb.deletePriority("tak");
         sqldb.deletePriority("praca");
         sqldb.deleteRule("kot");
+    }
+
+    @Override
+    public void messageReceived(Rule message) {
+        Toast.makeText(this, message.name, Toast.LENGTH_SHORT).show();
+        adapter.addItem(message);
     }
 
     @Override
@@ -112,10 +117,10 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemTouch
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
         if (viewHolder instanceof RecyclerViewAdapter.MyViewHolder) {
 
-            String name = dataToView.get(viewHolder.getAdapterPosition());
+            String name = dataToView.get(viewHolder.getAdapterPosition()).name;
             adapter.removeItem(viewHolder.getAdapterPosition());
               Snackbar snackbar = Snackbar
-                    .make(constraintLayout, "Deleted: " + name, Snackbar.LENGTH_LONG);
+                    .make(linearLayout, "Deleted: " + name, Snackbar.LENGTH_LONG);
             snackbar.setAction("OK", new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
