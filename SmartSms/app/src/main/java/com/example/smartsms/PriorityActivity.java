@@ -9,6 +9,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.TimerTask;
 import java.util.Vector;
 
 public class PriorityActivity extends AppCompatActivity implements View.OnClickListener {
@@ -55,6 +57,8 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
     ImageButton createButton;
 
     private SqliteDB dataBase;
+
+    CountDownTimer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,9 +144,12 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
                     firstOpen =true;
                 }
                 if(mediaPlayer != null){
-                    mediaPlayer.pause();
+                    mediaPlayer.stop();
                     mediaPlayer.release();
                     mediaPlayer = null;
+                    if(timer!=null) {
+                        timer.cancel();
+                    }
                 }
 
 
@@ -165,8 +172,29 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
 
                 if(firstOpen==false) {
                     mediaPlayer.start();
+
+                    //Timer stopping mediaPlayer after 8s
+                    timer = new CountDownTimer(8000, 8000) {
+
+                        @Override
+                        public void onTick(long millisUntilFinished) {
+                            // Nothing to do
+                        }
+
+                        @Override
+                        public void onFinish() {
+                            if (mediaPlayer.isPlaying()) {
+                                mediaPlayer.stop();
+                                mediaPlayer.release();
+                            }
+                        }
+                    };
+                    timer.start();
                 }
+
+
             }
+
 
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
