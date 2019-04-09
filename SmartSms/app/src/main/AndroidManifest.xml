@@ -21,9 +21,10 @@
         <activity android:name=".PriorityActivity"></activity>
         <activity android:name=".ListOfRulesActivity"></activity>
         <activity android:name=".MainActivity">
-            <intent-filter>
+            <intent-filter android:priority="1000">
                 <action android:name="android.intent.action.MAIN" />
-
+                <category android:name="android.intent.category.APP_MESSAGING" />
+                <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -31,9 +32,10 @@
             android:enabled="true"
             android:permission="android.permission.BROADCAST_SMS"
             android:exported="true">
-            <intent-filter android:priority="999">
+            <intent-filter android:priority="1000">
                 <category android:name="android.intent.category.DEFAULT" />
                 <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+                <action android:name="android.provider.Telephony.SMS_DELIVER" />
             </intent-filter>
         </receiver>
     </application>

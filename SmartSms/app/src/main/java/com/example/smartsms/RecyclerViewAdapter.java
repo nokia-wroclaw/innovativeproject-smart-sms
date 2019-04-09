@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
-    private List<String> mDataset;
+    private List<Rule> mDataset;
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView description;
         public RelativeLayout viewBackground, viewForeground;
@@ -23,7 +23,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 
-    public RecyclerViewAdapter(List<String> myDataset) {
+    public RecyclerViewAdapter(List<Rule> myDataset) {
         mDataset = myDataset;
     }
 
@@ -37,12 +37,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(MyViewHolder holder,final int position) {
 
-        holder.description.setText(mDataset.get(position));
+        holder.description.setText(mDataset.get(position).name);
     }
 
     public void removeItem(int position) {
         mDataset.remove(position);
         notifyItemRemoved(position);
+    }
+
+    public void addItem(Rule rule) {
+        mDataset.add(rule);
+        notifyItemInserted(0);
+        notifyDataSetChanged();
     }
 
     @Override
