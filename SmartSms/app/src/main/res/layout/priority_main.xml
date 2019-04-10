@@ -110,8 +110,8 @@
                 android:contentDescription="@android:string/untitled"
                 android:onClick="onClick"
                 android:padding="6dp"
-                android:tag="@mipmap/ic_person"
-                app:srcCompat="@mipmap/ic_person" />
+                android:tag="@android:drawable/ic_menu_search"
+                app:srcCompat="@android:drawable/ic_menu_search" />
 
             <ImageButton
                 android:id="@+id/imageButton6"

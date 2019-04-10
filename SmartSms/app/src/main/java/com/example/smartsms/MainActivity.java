@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements MessageListener, 
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new RecyclerViewAdapter(dataToView);
+        adapter = new RecyclerViewAdapter(this, dataToView);
         recyclerView.setAdapter(adapter);
 
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements MessageListener, 
         SmsReceiver.bindListener(this);
         //test DataBase
 
-        sqldb.deleteRule("zasada7");
+        /*sqldb.deleteRule("zasada7");
         sqldb.deletePriority("tak");
         sqldb.deletePriority("praca");
         sqldb.deleteRule("kot");
@@ -70,9 +70,9 @@ public class MainActivity extends AppCompatActivity implements MessageListener, 
         sqldb.addPriority(priority);
         rule= new Rule("zasada7","stop","892189124",priority);
         sqldb.addRule(rule);
-        rule= new Rule("zasada","stop","123456789",priority);
+        rule= new Rule("tom","stop","793337518",priority);
         sqldb.addRule(rule);
-        rule= new Rule("cos","stop","987654321",priority);
+        rule= new Rule("info","stop","119119",priority);
         sqldb.addRule(rule);
         rule = sqldb.getRule("kot");
         sqldb.addRule(rule);
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements MessageListener, 
         sqldb.deleteRule("zasada7");
         sqldb.deletePriority("tak");
         sqldb.deletePriority("praca");
-        sqldb.deleteRule("kot");
+        sqldb.deleteRule("kot");*/
     }
 
     @Override
