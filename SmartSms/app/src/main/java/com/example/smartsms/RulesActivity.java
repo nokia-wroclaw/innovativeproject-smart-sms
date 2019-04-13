@@ -47,7 +47,7 @@ public class RulesActivity extends AppCompatActivity implements View.OnTouchList
 
     float dX;
     float dY;
-    int lastAction;
+    private int lastAction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -216,27 +216,35 @@ public class RulesActivity extends AppCompatActivity implements View.OnTouchList
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public boolean onTouch(View view, MotionEvent event) {
+
+
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
+
                 dX = view.getX() - event.getRawX();
                 dY = view.getY() - event.getRawY();
                 lastAction = MotionEvent.ACTION_DOWN;
+              // Toast.makeText(RulesActivity.this,"pressed",Toast.LENGTH_LONG).show();
                 break;
 
-            case MotionEvent.ACTION_MOVE:
+          /*  case MotionEvent.ACTION_MOVE:
                 view.setY(event.getRawY() + dY);
                 view.setX(event.getRawX() + dX);
                 lastAction = MotionEvent.ACTION_MOVE;
-                break;
 
+
+                break;
+*/
             case MotionEvent.ACTION_UP:
-                if (lastAction == MotionEvent.ACTION_DOWN)
+                if (lastAction ==MotionEvent.ACTION_DOWN )
                 {
-                    if(contactPermission()==true){
+                    if(contactPermission()==true ){
                         Intent pickContact = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
                         pickContact.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
                         startActivityForResult(pickContact, 1);
                     }}
+
+
                 break;
 
             default:
