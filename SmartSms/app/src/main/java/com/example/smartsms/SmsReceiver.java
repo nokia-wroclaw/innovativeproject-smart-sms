@@ -39,7 +39,7 @@ public class SmsReceiver extends BroadcastReceiver {
                 String smsBody = smsMessage.getMessageBody().toString();
                 String address = smsMessage.getOriginatingAddress();
                 for(Rule r : rules){
-                    if(r.phoneNumber.equals(address)){
+                    if(checkNumbers(r.phoneNumber,address)){
                         mListener.messageReceived(r);
                     }
 
@@ -49,6 +49,13 @@ public class SmsReceiver extends BroadcastReceiver {
             }
 
         }
+    }
+
+    boolean checkNumbers(String number1, String number2){
+        String pre = "+48";
+        String tmp = number1.replace(pre,"");
+        String tmp2 = number2.replace(pre,"");
+        return tmp.equals(tmp2);
     }
 }
 
