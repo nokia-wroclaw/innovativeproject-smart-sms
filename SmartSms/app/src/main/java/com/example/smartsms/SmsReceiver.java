@@ -3,9 +3,6 @@ package com.example.smartsms;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
 import android.util.Log;
@@ -42,7 +39,6 @@ public class SmsReceiver extends BroadcastReceiver {
                     if(checkNumbers(r.phoneNumber,address)){
                         mListener.messageReceived(r);
                     }
-
                 }
                 smsMessageStr += "SMS From: " + address + "\n";
                 smsMessageStr += smsBody + "\n";
