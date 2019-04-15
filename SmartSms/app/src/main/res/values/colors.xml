@@ -6,6 +6,6 @@
     <color name="bg_row_background">#FF0000</color>
     <color name="item_name">#535353</color>
     <color name="description">#FFFFFF</color>
-    <color name="color_stroke">#919BFF</color>
+    <color name="color_stroke">#BED5F4</color>
     color_stroke
 </resources>

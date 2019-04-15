@@ -182,7 +182,7 @@ public class RulesActivity extends AppCompatActivity implements View.OnTouchList
             Toast.makeText(RulesActivity.this,"There is no priority",Toast.LENGTH_LONG).show();
         }
 
-        if(check==false){  System.out.println("ff");return;}
+        if(check==false){  return;}
 
         text = spinerList.getSelectedItem().toString();
         Priority priority=sqldb.getPriority(text);
