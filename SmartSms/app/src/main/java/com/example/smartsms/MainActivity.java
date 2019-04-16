@@ -99,34 +99,7 @@ public class MainActivity extends AppCompatActivity implements MessageListener, 
     public void messageReceived(Rule message) {
         Toast.makeText(this, message.name, Toast.LENGTH_SHORT).show();
         adapter.addItem(message);
-        mediaPlayer = new MediaPlayer();
-        Uri contentUri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,  Long.parseLong( message.priority.musicPath ));
-        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        try {
 
-            mediaPlayer.setDataSource(getApplicationContext(), contentUri);
-            mediaPlayer.prepare();
-            mediaPlayer.start();
-
-            CountDownTimer timer = new CountDownTimer(8000, 8000) {
-
-                @Override
-                public void onTick(long millisUntilFinished) {
-                    // Nothing to do
-                }
-
-                @Override
-                public void onFinish() {
-                    if (mediaPlayer.isPlaying()) {
-                        mediaPlayer.stop();
-                        mediaPlayer.release();
-                    }
-                }
-            };
-            timer.start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
