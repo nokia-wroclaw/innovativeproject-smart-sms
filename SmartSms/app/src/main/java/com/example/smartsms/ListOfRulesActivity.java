@@ -75,7 +75,10 @@ public class ListOfRulesActivity extends AppCompatActivity{
                     Toast.makeText(ListOfRulesActivity.this,"Rule "+nameDelete+" was deleted",Toast.LENGTH_LONG).show();
 
                     rules.remove(position);
-                    addapter.notifyDataSetChanged();
+                    populateList();
+                    addapter=new CustomAddapter(rules,getApplicationContext());
+                    listRules.setAdapter(addapter);
+
 
                 }
                 return;
