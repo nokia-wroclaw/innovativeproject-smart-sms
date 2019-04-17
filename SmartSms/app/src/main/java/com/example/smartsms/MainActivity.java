@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements MessageListener, 
 
         //startService(new Intent(this, MyService.class));
         //test DataBase
-        /*
+
         sqldb.deleteCapturedRule(12);
         sqldb.deleteCapturedRule(13);
         sqldb.deleteCapturedRule(14);
@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements MessageListener, 
         sqldb.addCapturedRule(capturedRule0);
         sqldb.addCapturedRule(capturedRule1);
         sqldb.addCapturedRule(capturedRule2);
+        CapturedRule capturedRule3 = sqldb.getCapturedRule(12);
         ArrayList<CapturedRule> list = sqldb.getAllCapturedRule();
         /*sqldb.deleteRule("zasada7");
         sqldb.deletePriority("tak");

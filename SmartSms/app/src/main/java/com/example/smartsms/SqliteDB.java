@@ -3,6 +3,7 @@ package com.example.smartsms;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -135,6 +136,27 @@ public class SqliteDB extends SQLiteOpenHelper {
             }
         }
     }
+
+    public CapturedRule getCapturedRule(int seed)
+    {
+        String str_seed=Integer.toString(seed);
+        SQLiteDatabase db = this.getWritableDatabase();
+        String nameRule_0 = null;
+        String smsText_1 = null;
+        int seed_2 = 0;
+        String selectQuery = "SELECT * from "+TABLE_NAME3+" where SEED = '" + str_seed+ "'";
+        Cursor cursor=(db).rawQuery(selectQuery,null);
+        while (cursor.moveToNext()) {
+            nameRule_0=cursor.getString(1);
+            smsText_1=cursor.getString(2);
+            seed_2=cursor.getInt(3);
+        }
+        CapturedRule capturedRule = new CapturedRule(nameRule_0,smsText_1,seed_2);
+        cursor.close();
+        (db).close();
+        return capturedRule;
+    }
+
     public Priority getPriority(String name)
     {
         SQLiteDatabase db = this.getWritableDatabase();
