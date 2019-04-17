@@ -7,6 +7,8 @@ import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
+
+import android.graphics.Paint;
 import android.util.Log;
 
 
@@ -27,11 +29,19 @@ public class SqliteDB extends SQLiteOpenHelper {
     private static final String COL4_R="name";
     private static final String COL5_R="phone";
 
+    private static final String TABLE_NAME3="CapturedRules";
+    private static final String COL1_C="ID";
+    private static final String COL2_C="ruleName";
+    private static final String COL3_C="textSMS";
+    private static final String COL4_C = "seed";
+
+
+
 
 
     public SqliteDB(Context context)
     {
-        super(context, DATABASE_NAME, null, 3);
+        super(context, DATABASE_NAME, null, 7);
         SQLiteDatabase db = this.getWritableDatabase();
     }
 
@@ -39,6 +49,7 @@ public class SqliteDB extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table " + TABLE_NAME1 +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,NAME TEXT,COLOR TEXT,PICTUREPATH TEXT,MUSICPATH TEXT)");
         db.execSQL("create table " + TABLE_NAME2 +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,ID_PRIORITY INTEGER,PHRASE TEXT,NAME TEXT,PHONE TEXT, FOREIGN KEY(ID_PRIORITY) REFERENCES "+ TABLE_NAME1+"(ID) )");
+        db.execSQL("create table " + TABLE_NAME3 +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,RULENAME TEXT,TEXTSMS TEXT,SEED INTEGER)");
         db.execSQL("PRAGMA foreign_keys=ON;");
     }
 
@@ -46,7 +57,25 @@ public class SqliteDB extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME1);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME2);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME3);
         onCreate(db);
+    }
+
+    public boolean addCapturedRule(CapturedRule capturedRule)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL2_C, capturedRule.nameRule);
+        contentValues.put(COL3_C, capturedRule.smsText);
+        contentValues.put(COL4_C,capturedRule.seed);
+
+        long result = db.insert(TABLE_NAME3, null, contentValues);
+        (db).close();
+        if (result == -1) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public boolean addPriority(Priority priority) {
@@ -153,6 +182,13 @@ public class SqliteDB extends SQLiteOpenHelper {
         db.delete(TABLE_NAME2, "name = ?", new String[]{name});
     }
 
+    public void deleteCapturedRule(int seed)
+    {
+        String str_seed = Integer.toString(seed);
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME3, "seed = ?", new String[]{str_seed});
+    }
+
     public ArrayList<Priority> getAllPriority()
     {
         ArrayList<Priority> list= new ArrayList<Priority>();
@@ -170,6 +206,28 @@ public class SqliteDB extends SQLiteOpenHelper {
             musicPath_3=cursor.getString(4);
             Priority priority = new Priority(name_0,color_1,pngPath_2,musicPath_3);
             list.add(priority);
+        }
+        cursor.close();
+        (db).close();
+        return list;
+    }
+
+    public ArrayList<CapturedRule> getAllCapturedRule()
+    {
+        ArrayList<CapturedRule> list= new ArrayList<CapturedRule>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        String nameRule_0 = null;
+        String smsText_1 = null;
+        int seed_2 = 0;
+        String selectQuery = "SELECT * from "+TABLE_NAME3;
+        Cursor cursor=(db).rawQuery(selectQuery,null);
+        while (cursor.moveToNext()) {
+            nameRule_0=cursor.getString(1);
+            smsText_1=cursor.getString(2);
+            seed_2=cursor.getInt(3);
+
+            CapturedRule capturedRule = new CapturedRule(nameRule_0,smsText_1,seed_2);
+            list.add(capturedRule);
         }
         cursor.close();
         (db).close();
