@@ -36,28 +36,37 @@ public class MainActivity extends AppCompatActivity implements MessageListener, 
     //SmsReceiver smsReceiver;
     MediaPlayer mediaPlayer;
     RecyclerViewAdapter adapter;
-    List<Rule> dataToView = new LinkedList<>();//new LinkedList<>(Arrays.asList("tekst", "tekst 2", "tekst 3", "tekst 4", "tekst 5", "tekst 6", "tekst 7", "tekst 8", "tekst 9", "tekst", "tekst 2", "tekst 3", "tekst 4", "tekst 5", "tekst 6", "tekst 7", "tekst 8", "tekst 9"));
+    List<CapturedRule> dataToView = new LinkedList<>();//new LinkedList<>(Arrays.asList("tekst", "tekst 2", "tekst 3", "tekst 4", "tekst 5", "tekst 6", "tekst 7", "tekst 8", "tekst 9", "tekst", "tekst 2", "tekst 3", "tekst 4", "tekst 5", "tekst 6", "tekst 7", "tekst 8", "tekst 9"));
     private LinearLayout linearLayout;
     private int MY_PERMISSIONS_REQUEST_SMS_RECEIVE = 10;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //SmsReceiver.bindContext(getApplicationContext());
+        sqldb = new SqliteDB(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_main);
-        //Toolbar toolbar = findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
         linearLayout = findViewById(R.id.coordinator_layout);
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+
+        ArrayList<CapturedRule> capturedRules = sqldb.getAllCapturedRule();
+        ArrayList<Rule> rules = sqldb.getAllRule();
+        for(CapturedRule cr : capturedRules){
+            for(Rule r : rules){
+                if(cr.nameRule.equals(r.name)){
+                    dataToView.add(cr);
+                }
+            }
+        }
+
         adapter = new RecyclerViewAdapter(this, dataToView);
         recyclerView.setAdapter(adapter);
 
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
-        sqldb = new SqliteDB(this);
+
 
         ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.RECEIVE_SMS},
                 MY_PERMISSIONS_REQUEST_SMS_RECEIVE);
@@ -67,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements MessageListener, 
         //startService(new Intent(this, MyService.class));
         //test DataBase
 
-        sqldb.deleteCapturedRule(12);
+        /*sqldb.deleteCapturedRule(12);
         sqldb.deleteCapturedRule(13);
         sqldb.deleteCapturedRule(14);
         CapturedRule capturedRule0 = new CapturedRule("Tak","cos",12);
@@ -78,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements MessageListener, 
         sqldb.addCapturedRule(capturedRule2);
         CapturedRule capturedRule3 = sqldb.getCapturedRule(12);
         ArrayList<CapturedRule> list = sqldb.getAllCapturedRule();
-        /*sqldb.deleteRule("zasada7");
+        sqldb.deleteRule("zasada7");
         sqldb.deletePriority("tak");
         sqldb.deletePriority("praca");
         sqldb.deleteRule("kot");
@@ -108,8 +117,8 @@ public class MainActivity extends AppCompatActivity implements MessageListener, 
     }
 
     @Override
-    public void messageReceived(Rule message) {
-        Toast.makeText(this, message.name, Toast.LENGTH_SHORT).show();
+    public void messageReceived(CapturedRule message) {
+        Toast.makeText(this, message.nameRule, Toast.LENGTH_SHORT).show();
         adapter.addItem(message);
 
     }
@@ -141,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements MessageListener, 
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
         if (viewHolder instanceof RecyclerViewAdapter.MyViewHolder) {
 
-            String name = dataToView.get(viewHolder.getAdapterPosition()).name;
+            String name = dataToView.get(viewHolder.getAdapterPosition()).nameRule;
             adapter.removeItem(viewHolder.getAdapterPosition());
               Snackbar snackbar = Snackbar
                     .make(linearLayout, "Deleted: " + name, Snackbar.LENGTH_LONG);

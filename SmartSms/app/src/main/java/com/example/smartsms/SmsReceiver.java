@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -48,6 +49,14 @@ public class SmsReceiver extends BroadcastReceiver {
                         mediaPlayer = new MediaPlayer();
                         Uri contentUri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,  Long.parseLong( r.priority.musicPath ));
                         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                        ArrayList<CapturedRule> list = db.getAllCapturedRule();
+                        Random random = new Random();
+                        int seed = random.nextInt();
+                        while(!isSeedFree(seed,list)){
+                            seed = random.nextInt();
+                        }
+                        CapturedRule capturedRule = new CapturedRule(r.name,smsBody,seed);
+                        db.addCapturedRule(capturedRule);
                         try {
 
                             mediaPlayer.setDataSource(context, contentUri);
@@ -74,7 +83,7 @@ public class SmsReceiver extends BroadcastReceiver {
                             e.printStackTrace();
                         }
                         try{
-                            mListener.messageReceived(r);
+                            mListener.messageReceived(capturedRule);
                         }catch (Exception ee){
                             Toast.makeText(context, r.name, Toast.LENGTH_SHORT).show();
 
@@ -87,6 +96,15 @@ public class SmsReceiver extends BroadcastReceiver {
             }
 
         }
+    }
+
+    boolean isSeedFree(int seed, ArrayList<CapturedRule> capturedRules){
+        boolean free = true;
+        for (CapturedRule cr : capturedRules){
+            if(seed==cr.seed)
+                free = false;
+        }
+        return free;
     }
 
     boolean checkNumbers(String number1, String number2){
