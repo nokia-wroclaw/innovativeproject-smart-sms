@@ -45,7 +45,14 @@ public class SmsReceiver extends BroadcastReceiver {
                 String smsBody = smsMessage.getMessageBody().toString();
                 String address = smsMessage.getOriginatingAddress();
                 for(Rule r : rules){
-                    if(checkNumbers(r.phoneNumber,address)){
+                    boolean play = false;
+                    if(checkNumbers(r.phoneNumber,address) && Arrays.asList(smsBody.split(" ")).contains(r.phrase)){
+                        play = true;
+                    }else if((r.phrase.equals("") && checkNumbers(r.phoneNumber,address)) || (Arrays.asList(smsBody.split(" ")).contains(r.phrase) && r.phoneNumber.equals(""))){
+                        play = true;
+                    }
+
+                    if(play){
                         mediaPlayer = new MediaPlayer();
                         Uri contentUri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,  Long.parseLong( r.priority.musicPath ));
                         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -88,7 +95,6 @@ public class SmsReceiver extends BroadcastReceiver {
                             Toast.makeText(context, r.name, Toast.LENGTH_SHORT).show();
 
                         }
-
                     }
                 }
                 smsMessageStr += "SMS From: " + address + "\n";

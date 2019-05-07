@@ -169,12 +169,12 @@ public class RulesActivity extends AppCompatActivity implements View.OnTouchList
         }
         else {InputName.setError(null);}
 
-        if(phone.getText().toString().length()<1)
+        /*if(phone.getText().toString().length()<1)
         {
             InputPhone.setError("Field can't be empty");
             check=false;
         }
-        else {InputPhone.setError(null);}
+        else {InputPhone.setError(null);}*/
 
         if((spinerList.getSelectedItem() ==null))
         {
