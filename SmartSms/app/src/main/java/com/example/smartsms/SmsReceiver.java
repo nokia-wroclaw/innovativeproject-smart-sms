@@ -114,9 +114,27 @@ public class SmsReceiver extends BroadcastReceiver {
     }
 
     boolean checkNumbers(String number1, String number2){
-        String pre = "+48";
-        String tmp = number1.replace(pre,"");
-        String tmp2 = number2.replace(pre,"");
+        char plus = '+';
+        String zeroes = "00";
+        String tmp = number1.replaceAll("\\s+","");
+        String tmp2 = number2.replaceAll("\\s+","");
+        try {
+            if(tmp.charAt(0) == plus){
+                tmp = tmp.substring(3);
+            }
+            if(tmp.equals(tmp.substring(0,2))){
+                tmp = tmp.substring(2);
+            }
+            if(tmp2.charAt(0) == plus){
+                tmp2 = tmp2.substring(3);
+            }
+            if(zeroes.equals(tmp2.substring(0,2))){
+                tmp2 = tmp2.substring(2);
+            }
+        }catch (Exception e){
+
+        }
+
         return tmp.equals(tmp2);
     }
 }
