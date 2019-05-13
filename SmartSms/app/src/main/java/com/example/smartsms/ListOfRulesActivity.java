@@ -74,7 +74,7 @@ public class ListOfRulesActivity extends AppCompatActivity{
                     db.deleteRule(nameDelete);
                     Toast.makeText(ListOfRulesActivity.this,"Rule "+nameDelete+" was deleted",Toast.LENGTH_LONG).show();
 
-                    rules.remove(position);
+                   // rules.remove(position); wydaje sie zbedne
                     populateList();
                     addapter=new CustomAddapter(rules,getApplicationContext());
                     listRules.setAdapter(addapter);
@@ -92,9 +92,52 @@ public class ListOfRulesActivity extends AppCompatActivity{
     {
        // System.out.println("vvvvvvv");
         rules=new ArrayList<Rule>(db.getAllRule());
+        ArrayList sort=new ArrayList<Rule>();
+
         rulesName=new ArrayList<String>();
         rulesPhone=new ArrayList<String>();
         rulesKeyWords=new ArrayList<String>();
+
+        for(int i=0;i<rules.size();i++)
+        {
+            //red
+                if(rules.get(i).priority.color.equals("#ffcc0000"))
+                {sort.add(rules.get(i));}
+        }
+        for(int i=0;i<rules.size();i++)
+        {
+            //blue
+            if(rules.get(i).priority.color.equals("#ff0099cc"))
+            {sort.add(rules.get(i));}
+        }
+        for(int i=0;i<rules.size();i++)
+        {
+            //grey
+            if(rules.get(i).priority.color.equals("#ffaaaaaa"))
+            {sort.add(rules.get(i));}
+        }
+        for(int i=0;i<rules.size();i++)
+        {
+            //black
+            if(rules.get(i).priority.color.equals("#ff000000"))
+            {sort.add(rules.get(i));}
+        }
+        for(int i=0;i<rules.size();i++)
+        {
+            //green
+            if(rules.get(i).priority.color.equals("#ff669900"))
+            {sort.add(rules.get(i));}
+        }
+
+        for(int i=0;i<rules.size();i++)
+        {
+            //orange
+            if(rules.get(i).priority.color.equals("#ffff8800"))
+            {sort.add(rules.get(i));}
+        }
+
+        rules=sort;
+        System.out.println("size"+rules.size());
         for(int i=0;i<rules.size();i++)
         {
            // System.out.println("aaaaa");

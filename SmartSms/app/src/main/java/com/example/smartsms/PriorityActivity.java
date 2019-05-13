@@ -8,9 +8,11 @@ import android.database.Cursor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.provider.MediaStore;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -60,6 +62,7 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
 
     CountDownTimer timer;
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,6 +128,7 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void selectRingtone(){
         ringtoneSpinnerList = (Spinner) findViewById(R.id.spinnerRingtone);
 
@@ -205,6 +209,7 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void getMusic() {
         ContentResolver contentResolver = getContentResolver();
         Uri songUri = android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
