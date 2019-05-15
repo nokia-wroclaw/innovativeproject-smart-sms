@@ -31,7 +31,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity implements MessageListener, RecyclerItemTouchHelper.RecyclerItemTouchHelperListener{
+public class MainActivity extends AppCompatActivity implements MessageListener, RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
     SqliteDB sqldb;
     //SmsReceiver smsReceiver;
     MediaPlayer mediaPlayer;
@@ -76,15 +76,27 @@ public class MainActivity extends AppCompatActivity implements MessageListener, 
         //startService(new Intent(this, MyService.class));
         //test DataBase
 
-        /*sqldb.deleteCapturedRule(12);
+        /*
+        sqldb.deleteCapturedRule(12);
         sqldb.deleteCapturedRule(13);
         sqldb.deleteCapturedRule(14);
-        CapturedRule capturedRule0 = new CapturedRule("Tak","cos",12);
-        CapturedRule capturedRule1 = new CapturedRule("Taki","cosi",13);
-        CapturedRule capturedRule2 = new CapturedRule("Takie","cosik",14);
+
+        CapturedRule capturedRule0 = new CapturedRule("nie","cos",67);
+        CapturedRule capturedRule1 = new CapturedRule("jest","cosi",68);
+        CapturedRule capturedRule2 = new CapturedRule("ok","cosik",69);
+
         sqldb.addCapturedRule(capturedRule0);
         sqldb.addCapturedRule(capturedRule1);
         sqldb.addCapturedRule(capturedRule2);
+
+        try {
+            sqldb.importDatabase("/data/data/com.example.smartsms/databases/Sample.db"); //Plik musi znajdować się na urządzeniu
+            sqldb.exportDatabase("/data/data/com.example.smartsms/databases/SampleExport.db"); //Tak Samo Plik musi znajdować się na urządzeniu
+        }
+        catch(IOException ie) {
+            ie.printStackTrace();
+        }
+
         CapturedRule capturedRule3 = sqldb.getCapturedRule(12);
         ArrayList<CapturedRule> list = sqldb.getAllCapturedRule();
         sqldb.deleteRule("zasada7");

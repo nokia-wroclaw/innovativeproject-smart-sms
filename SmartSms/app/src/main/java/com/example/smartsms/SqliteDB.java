@@ -8,6 +8,11 @@ import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
+import java.io.IOException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+
 
 import android.graphics.Paint;
 import android.util.Log;
@@ -36,7 +41,7 @@ public class SqliteDB extends SQLiteOpenHelper {
     private static final String COL3_C="textSMS";
     private static final String COL4_C = "seed";
 
-
+    public static String DB_FILEPATH = "/data/data/com.example.smartsms/databases/Database.db";
 
 
 
@@ -60,6 +65,31 @@ public class SqliteDB extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME2);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME3);
         onCreate(db);
+    }
+
+    public boolean importDatabase(String dbPath) throws IOException {
+        close();
+        File newDb = new File(dbPath);
+        File oldDb = new File(DB_FILEPATH);
+        if (newDb.exists()) {
+            FileUtils.copyFile(new FileInputStream(newDb), new FileOutputStream(oldDb));
+            getWritableDatabase().close();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean exportDatabase(String dbPath) throws IOException
+    {
+        close();
+        File newDb = new File(dbPath);
+        File oldDb = new File(DB_FILEPATH);
+        if (newDb.exists()) {
+            FileUtils.copyFile(new FileInputStream(oldDb), new FileOutputStream(newDb));
+            getWritableDatabase().close();
+            return true;
+        }
+        return false;
     }
 
     public boolean addCapturedRule(CapturedRule capturedRule)
