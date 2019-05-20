@@ -73,59 +73,9 @@ public class MainActivity extends AppCompatActivity implements MessageListener, 
 
         SmsReceiver.bindListener(this);
 
-        //startService(new Intent(this, MyService.class));
-        //test DataBase
+        sqldb.deleteColorPriority("color1");
+        sqldb.deleteColorPriority("color2");
 
-        /*
-        sqldb.deleteCapturedRule(12);
-        sqldb.deleteCapturedRule(13);
-        sqldb.deleteCapturedRule(14);
-
-        CapturedRule capturedRule0 = new CapturedRule("nie","cos",67);
-        CapturedRule capturedRule1 = new CapturedRule("jest","cosi",68);
-        CapturedRule capturedRule2 = new CapturedRule("ok","cosik",69);
-
-        sqldb.addCapturedRule(capturedRule0);
-        sqldb.addCapturedRule(capturedRule1);
-        sqldb.addCapturedRule(capturedRule2);
-
-        try {
-            sqldb.importDatabase("/data/data/com.example.smartsms/databases/Sample.db"); //Plik musi znajdować się na urządzeniu
-            sqldb.exportDatabase("/data/data/com.example.smartsms/databases/SampleExport.db"); //Tak Samo Plik musi znajdować się na urządzeniu
-        }
-        catch(IOException ie) {
-            ie.printStackTrace();
-        }
-
-        CapturedRule capturedRule3 = sqldb.getCapturedRule(12);
-        ArrayList<CapturedRule> list = sqldb.getAllCapturedRule();
-        sqldb.deleteRule("zasada7");
-        sqldb.deletePriority("tak");
-        sqldb.deletePriority("praca");
-        sqldb.deleteRule("kot");
-        Priority priority = new Priority("tak","nie","sth","path");
-        Rule rule = new Rule("kot","start","892189129",priority);
-        sqldb.addPriority(priority);
-        priority = new Priority("praca","red","path","path");
-        sqldb.addPriority(priority);
-        sqldb.addRule(rule);
-        priority = null;
-        priority = sqldb.getPriority("praca");
-        sqldb.addPriority(priority);
-        rule= new Rule("zasada7","stop","892189124",priority);
-        sqldb.addRule(rule);
-        rule= new Rule("tom","stop","793337518",priority);
-        sqldb.addRule(rule);
-        rule= new Rule("info","stop","119119",priority);
-        sqldb.addRule(rule);
-        rule = sqldb.getRule("kot");
-        sqldb.addRule(rule);
-        ArrayList<Priority> pr = sqldb.getAllPriority();
-        ArrayList<Rule> rl = sqldb.getAllRule();
-        sqldb.deleteRule("zasada7");
-        sqldb.deletePriority("tak");
-        sqldb.deletePriority("praca");
-        sqldb.deleteRule("kot");*/
     }
 
     @Override

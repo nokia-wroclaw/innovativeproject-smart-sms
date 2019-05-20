@@ -41,13 +41,18 @@ public class SqliteDB extends SQLiteOpenHelper {
     private static final String COL3_C="textSMS";
     private static final String COL4_C = "seed";
 
+    private static final String TABLE_NAME4="Color";
+    private static final String COL1_CO="ID";
+    private static final String COL2_CO="color";
+    private static final String COL3_CO="color_priority";
+
     public static String DB_FILEPATH = "/data/data/com.example.smartsms/databases/Database.db";
 
 
 
     public SqliteDB(Context context)
     {
-        super(context, DATABASE_NAME, null, 7);
+        super(context, DATABASE_NAME, null, 8);
         SQLiteDatabase db = this.getWritableDatabase();
     }
 
@@ -56,6 +61,7 @@ public class SqliteDB extends SQLiteOpenHelper {
         db.execSQL("create table " + TABLE_NAME1 +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,NAME TEXT,COLOR TEXT,PICTUREPATH TEXT,MUSICPATH TEXT)");
         db.execSQL("create table " + TABLE_NAME2 +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,ID_PRIORITY INTEGER,PHRASE TEXT,NAME TEXT,PHONE TEXT, FOREIGN KEY(ID_PRIORITY) REFERENCES "+ TABLE_NAME1+"(ID) )");
         db.execSQL("create table " + TABLE_NAME3 +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,RULENAME TEXT,TEXTSMS TEXT,SEED INTEGER)");
+        db.execSQL("create table " + TABLE_NAME4 +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,COLOR TEXT,COLOR_PRIORITY INTEGER)");
         db.execSQL("PRAGMA foreign_keys=ON;");
     }
 
@@ -64,6 +70,7 @@ public class SqliteDB extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME1);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME2);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME3);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME4);
         onCreate(db);
     }
 
@@ -90,6 +97,46 @@ public class SqliteDB extends SQLiteOpenHelper {
             return true;
         }
         return false;
+    }
+
+
+    public boolean addColorPriority(ColorPriority colorPriority)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL2_CO, colorPriority.color);
+        contentValues.put(COL3_CO, colorPriority.color_priority);
+
+        long result = db.insert(TABLE_NAME4, null, contentValues);
+        (db).close();
+        if (result == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public ColorPriority getColorPriority(String color)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String color_0=null;
+        int color_priority=0;
+        String selectQuery = "SELECT * from "+TABLE_NAME4+" where COLOR = '" + color+ "'";
+        Cursor cursor=(db).rawQuery(selectQuery,null);
+        while (cursor.moveToNext()) {
+            color_0=cursor.getString(1);
+            color_priority=cursor.getInt(2);
+        }
+        ColorPriority colorPriority = new ColorPriority(color_0,color_priority);
+        cursor.close();
+        (db).close();
+        return colorPriority;
+    }
+
+    public void deleteColorPriority(String color)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME4, "COLOR = ?", new String[]{color});
     }
 
     public boolean addCapturedRule(CapturedRule capturedRule)
