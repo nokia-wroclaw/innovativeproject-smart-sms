@@ -46,7 +46,7 @@
                 android:backgroundTint="@color/colorPrimaryDark"
                 android:contentDescription="@android:string/cancel"
                 android:focusableInTouchMode="true"
-                app:srcCompat="@mipmap/ic_ok" />
+                app:srcCompat="@android:drawable/ic_menu_edit" />
 
             android:padding="0dp" />
 
