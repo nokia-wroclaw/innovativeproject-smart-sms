@@ -133,6 +133,26 @@ public class SqliteDB extends SQLiteOpenHelper {
         return colorPriority;
     }
 
+    public ArrayList<ColorPriority> getAllColor()
+    {
+        ArrayList<ColorPriority> list= new ArrayList<ColorPriority>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        String name_0=null;
+        int color_1 = 0;
+        String selectQuery = "SELECT * from "+TABLE_NAME4;
+        Cursor cursor=(db).rawQuery(selectQuery,null);
+        while (cursor.moveToNext()) {
+            name_0=cursor.getString(1);
+            color_1=cursor.getInt(2);
+            ColorPriority colorPriority = new ColorPriority(name_0,color_1);
+            list.add(colorPriority);
+        }
+        cursor.close();
+        (db).close();
+        return list;
+    }
+
+
     public void deleteColorPriority(String color)
     {
         SQLiteDatabase db = this.getWritableDatabase();

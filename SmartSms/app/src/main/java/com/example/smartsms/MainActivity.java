@@ -73,9 +73,6 @@ public class MainActivity extends AppCompatActivity implements MessageListener, 
 
         SmsReceiver.bindListener(this);
 
-        sqldb.deleteColorPriority("color1");
-        sqldb.deleteColorPriority("color2");
-
     }
 
     @Override
