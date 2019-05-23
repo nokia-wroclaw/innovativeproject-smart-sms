@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.provider.MediaStore;
+import android.telephony.PhoneNumberUtils;
 import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
@@ -46,9 +47,9 @@ public class SmsReceiver extends BroadcastReceiver {
                 String address = smsMessage.getOriginatingAddress();
                 for(Rule r : rules){
                     boolean play = false;
-                    if(checkNumbers(r.phoneNumber,address) && Arrays.asList(smsBody.split(" ")).contains(r.phrase)){
+                    if(PhoneNumberUtils.compare(r.phoneNumber,address) && Arrays.asList(smsBody.split(" ")).contains(r.phrase)){
                         play = true;
-                    }else if((r.phrase.equals("") && checkNumbers(r.phoneNumber,address)) || (Arrays.asList(smsBody.split(" ")).contains(r.phrase) && r.phoneNumber.equals(""))){
+                    }else if((r.phrase.equals("") && PhoneNumberUtils.compare(r.phoneNumber,address)) || (Arrays.asList(smsBody.split(" ")).contains(r.phrase) && r.phoneNumber.equals(""))){
                         play = true;
                     }
 
@@ -113,6 +114,7 @@ public class SmsReceiver extends BroadcastReceiver {
         return free;
     }
 
+    //useless right now
     boolean checkNumbers(String number1, String number2){
         char plus = '+';
         String zeroes = "00";
