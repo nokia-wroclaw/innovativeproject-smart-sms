@@ -4,7 +4,7 @@
     <string name="action_settings">Settings</string>
     <string name="action_first">Rule management</string>
     <string name="action_second">Priority management</string>
-    <string name="button_add_new">Add new rule</string>
+    <string name="button_add_new">ADD</string>
     <string name="my_cart">My list</string>
     <string name="delete">DELETE</string>
     <string name="priority">choose priority</string>
