@@ -43,6 +43,7 @@
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".Hierarchy" />
 
         <receiver
             android:name=".SmsReceiver"

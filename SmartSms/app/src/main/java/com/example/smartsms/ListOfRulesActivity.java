@@ -1,6 +1,7 @@
 package com.example.smartsms;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ListOfRulesActivity extends AppCompatActivity{
@@ -23,6 +25,7 @@ public class ListOfRulesActivity extends AppCompatActivity{
     private List<String> rulesName;
     private List<String> rulesPhone;
     private List<String> rulesKeyWords;
+    private List<ColorPriority> hierarchy;
     private SqliteDB db;
     private ListView listRules;
     private String nameDelete;
@@ -34,6 +37,15 @@ public class ListOfRulesActivity extends AppCompatActivity{
         setContentView(R.layout.list_of_rules);
 
         db = new SqliteDB(this);
+       // db.addColorPriority(new ColorPriority("#ffcc0000",10));
+       // db.deleteColorPriority("#ffcc0000");db.deleteColorPriority("#ffcc0000");db.deleteColorPriority("#ffcc0000");
+       /* db.addColorPriority(new ColorPriority("#ff0099cc",9));
+        db.addColorPriority(new ColorPriority("#ffaaaaaa",8));
+        db.addColorPriority(new ColorPriority("#ff000000",7));
+        db.addColorPriority(new ColorPriority("#ff669900",6));
+        db.addColorPriority(new ColorPriority("#ffff8800",5));
+
+*/
         populateList();
         listRules=(ListView) findViewById(R.id.listRules);
         listRules.setClickable(true);
@@ -67,6 +79,18 @@ public class ListOfRulesActivity extends AppCompatActivity{
 
 
         });
+
+        ImageButton editButton=findViewById(R.id.EditButton);
+        editButton.setOnClickListener(new  View.OnClickListener() {
+
+            public void onClick (View v) {
+
+                RuleListView();return;
+            }
+
+
+        });
+
         deleteButton.setOnClickListener(new  View.OnClickListener(){
             public void onClick (View v) {
 
@@ -86,6 +110,12 @@ public class ListOfRulesActivity extends AppCompatActivity{
         });
 
     }
+    public void RuleListView(){
+        Intent i = new Intent(ListOfRulesActivity.this, Hierarchy.class);
+        startActivity(i);
+    }
+
+
 
 
     public void populateList()
@@ -93,12 +123,25 @@ public class ListOfRulesActivity extends AppCompatActivity{
         // System.out.println("vvvvvvv");
         rules=new ArrayList<Rule>(db.getAllRule());
         ArrayList sort=new ArrayList<Rule>();
-
+         hierarchy=new ArrayList<ColorPriority>();
+         hierarchy=db.getAllColor();
         rulesName=new ArrayList<String>();
         rulesPhone=new ArrayList<String>();
         rulesKeyWords=new ArrayList<String>();
 
-        for(int i=0;i<rules.size();i++)
+        Collections.sort(hierarchy);
+
+        for(int j=0;j<hierarchy.size();j++) {
+
+           // System.out.println(hierarchy.get(j).color_priority+" "+hierarchy.get(j).color);
+            for (int i = 0; i < rules.size(); i++) {
+                //red
+                if (rules.get(i).priority.color.equals(hierarchy.get(j).color)) {
+                    sort.add(rules.get(i));
+                }
+            }
+        }
+       /* for(int i=0;i<rules.size();i++)
         {
             //red
             if(rules.get(i).priority.color.equals("#ffcc0000"))
@@ -135,12 +178,12 @@ public class ListOfRulesActivity extends AppCompatActivity{
             if(rules.get(i).priority.color.equals("#ffff8800"))
             {sort.add(rules.get(i));}
         }
-
+*/
         rules=sort;
-        System.out.println("size"+rules.size());
+        //System.out.println("size"+rules.size());
         for(int i=0;i<rules.size();i++)
         {
-            // System.out.println("aaaaa");
+            // System.out.println(rules.get(i).name);
             rulesName.add(rules.get(i).name);
             rulesPhone.add(rules.get(i).phoneNumber);
             rulesKeyWords.add(rules.get(i).phrase);

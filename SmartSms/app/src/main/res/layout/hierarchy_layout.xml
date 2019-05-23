@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.AppCompatSpinner
+        android:id="@+id/spinner2"
+        android:layout_width="134dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="124dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:prompt="@string/priority"
+        android:spinnerMode="dialog"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.406"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="412dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="52dp"
+        android:text="Select a weight of  priority"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/spinner2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.407"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottomNavigationView2"
+        style="@style/AlertDialog.AppCompat.Light"
+        android:layout_width="412dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="20dp"
+        android:padding="0dp"
+        app:itemBackground="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="410dp"
+            android:layout_height="75dp"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/BackButton"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimaryDark"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:contentDescription="@android:string/cancel"
+                android:focusableInTouchMode="true"
+                android:padding="0dp"
+                app:srcCompat="@android:drawable/ic_menu_revert" />
+
+            <ImageButton
+                android:id="@+id/OKButton"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimaryDark"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:contentDescription="@android:string/ok"
+                android:padding="0dp"
+                app:srcCompat="@android:drawable/ic_menu_add" />
+
+        </LinearLayout>
+
+    </android.support.design.widget.BottomNavigationView>
+
+
+    <android.support.v7.widget.AppCompatSpinner
+        android:id="@+id/spinner"
+        android:layout_width="174dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="300dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:prompt="@string/priority"
+        android:spinnerMode="dialog"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.429"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Select a color"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.409"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.892" />
+
+
+</android.support.constraint.ConstraintLayout>
