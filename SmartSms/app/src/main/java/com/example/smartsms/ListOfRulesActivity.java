@@ -32,7 +32,7 @@ public class ListOfRulesActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_of_rules);
-
+///
         db = new SqliteDB(this);
         populateList();
         listRules=(ListView) findViewById(R.id.listRules);
