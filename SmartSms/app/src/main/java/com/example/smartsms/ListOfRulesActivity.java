@@ -35,7 +35,7 @@ public class ListOfRulesActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_of_rules);
-
+///
         db = new SqliteDB(this);
        // db.addColorPriority(new ColorPriority("#ffcc0000",10));
        // db.deleteColorPriority("#ffcc0000");db.deleteColorPriority("#ffcc0000");db.deleteColorPriority("#ffcc0000");
