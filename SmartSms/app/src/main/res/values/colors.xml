@@ -3,6 +3,7 @@
     <color name="colorPrimary">#1B54E4</color>
     <color name="colorPrimaryDark">#2929A7</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="recyclerViewItem">#6DB2EC</color>
     <color name="bg_row_background">#FF0000</color>
     <color name="item_name">#535353</color>
     <color name="description">#FFFFFF</color>
