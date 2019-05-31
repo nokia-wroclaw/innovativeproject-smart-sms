@@ -46,13 +46,18 @@ public class SqliteDB extends SQLiteOpenHelper {
     private static final String COL2_CO="color";
     private static final String COL3_CO="color_priority";
 
+    private static final String TABLE_NAME5="Mode";
+    private static final String COL1_M="ID";
+    private static final String COL2_M="name";
+    private static final String COL3_M="IsON";
+
     public static String DB_FILEPATH = "/data/data/com.example.smartsms/databases/Database.db";
 
 
 
     public SqliteDB(Context context)
     {
-        super(context, DATABASE_NAME, null, 8);
+        super(context, DATABASE_NAME, null, 9);
         SQLiteDatabase db = this.getWritableDatabase();
     }
 
@@ -62,6 +67,7 @@ public class SqliteDB extends SQLiteOpenHelper {
         db.execSQL("create table " + TABLE_NAME2 +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,ID_PRIORITY INTEGER,PHRASE TEXT,NAME TEXT,PHONE TEXT, FOREIGN KEY(ID_PRIORITY) REFERENCES "+ TABLE_NAME1+"(ID) )");
         db.execSQL("create table " + TABLE_NAME3 +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,RULENAME TEXT,TEXTSMS TEXT,SEED INTEGER)");
         db.execSQL("create table " + TABLE_NAME4 +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,COLOR TEXT,COLOR_PRIORITY INTEGER)");
+        db.execSQL("create table " + TABLE_NAME5 +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,NAME TEXT,IsOn BOOLEAN)");
         db.execSQL("PRAGMA foreign_keys=ON;");
     }
 
@@ -71,8 +77,80 @@ public class SqliteDB extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME2);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME3);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME4);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME5);
         onCreate(db);
     }
+
+
+    public boolean addMode(Mode mode)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL2_M, mode.name);
+        contentValues.put(COL3_M, mode.IsOn);
+
+        long result = db.insert(TABLE_NAME5, null, contentValues);
+        (db).close();
+        if (result == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public Mode getMode(String name)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String name_0=null;
+        boolean IsOn_1=false;
+        String selectQuery = "SELECT * from "+TABLE_NAME5+" where NAME = '" +name+ "'";
+        Cursor cursor=(db).rawQuery(selectQuery,null);
+        while (cursor.moveToNext()) {
+            name_0=cursor.getString(1);
+            if(cursor.getInt(2) > 0) IsOn_1=true;
+            else IsOn_1=false;
+        }
+        Mode mode = new Mode(name_0,IsOn_1);
+        cursor.close();
+        (db).close();
+        return mode;
+    }
+
+    public ArrayList<Mode> getAllMode()
+    {
+        ArrayList<Mode> list= new ArrayList<Mode>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        String name_0 = null;
+        boolean IsOn_1 = false;
+        String selectQuery = "SELECT * from "+TABLE_NAME5;
+        Cursor cursor=(db).rawQuery(selectQuery,null);
+        while (cursor.moveToNext()) {
+            name_0=cursor.getString(1);
+            if(cursor.getInt(2) > 0) IsOn_1=true;
+            else IsOn_1=false;
+            Mode mode = new Mode(name_0,IsOn_1);
+            list.add(mode);
+        }
+        cursor.close();
+        (db).close();
+        return list;
+    }
+
+    public void deleteMode(String name)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME5, "NAME = ?", new String[]{name});
+    }
+
+    public void setMode(String nameMode,boolean SetMode)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("IsOn",SetMode);
+        db.update(TABLE_NAME5,values, "NAME = ?", new String[]{nameMode});
+
+    }
+
 
     public boolean importDatabase(String dbPath) throws IOException {
         close();

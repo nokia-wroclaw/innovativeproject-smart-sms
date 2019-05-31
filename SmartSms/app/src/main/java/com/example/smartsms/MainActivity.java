@@ -72,7 +72,6 @@ public class MainActivity extends AppCompatActivity implements MessageListener, 
                 MY_PERMISSIONS_REQUEST_SMS_RECEIVE);
 
         SmsReceiver.bindListener(this);
-
     }
 
     @Override
