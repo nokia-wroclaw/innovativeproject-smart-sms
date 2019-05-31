@@ -74,7 +74,7 @@
                 android:padding="0dp"
                 app:srcCompat="@android:drawable/ic_menu_revert" />
 
-            <ImageButton
+            <Button
                 android:id="@+id/OKButton"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
@@ -83,7 +83,9 @@
                 android:backgroundTint="@color/colorPrimaryDark"
                 android:contentDescription="@android:string/ok"
                 android:padding="0dp"
-                app:srcCompat="@android:drawable/ic_menu_add" />
+                android:text="OK"
+                android:textColor="@color/description"
+                android:textSize="20sp" />
 
         </LinearLayout>
 

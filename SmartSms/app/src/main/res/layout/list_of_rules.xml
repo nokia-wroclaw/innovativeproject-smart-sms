@@ -37,16 +37,7 @@
                 android:padding="0dp"
                 app:srcCompat="@android:drawable/ic_menu_revert" />
 
-            <ImageButton
-                android:id="@+id/EditButton"
-                android:layout_width="185dp"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:background="@color/colorPrimaryDark"
-                android:backgroundTint="@color/colorPrimaryDark"
-                android:contentDescription="@android:string/cancel"
-                android:focusableInTouchMode="true"
-                app:srcCompat="@android:drawable/ic_menu_edit" />
+
 
             android:padding="0dp" />
 

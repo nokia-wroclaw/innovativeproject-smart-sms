@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -44,7 +45,7 @@ public class Hierarchy extends AppCompatActivity {
         spinerList2.setAdapter(listAdapter2);
 
         ImageButton backButton=findViewById(R.id.BackButton);
-        ImageButton okButton=findViewById(R.id.OKButton);
+        Button okButton=findViewById(R.id.OKButton);
         okButton.setOnClickListener(new  View.OnClickListener() {
 
             public void onClick (View v) {
@@ -58,8 +59,7 @@ public class Hierarchy extends AppCompatActivity {
         backButton.setOnClickListener(new  View.OnClickListener() {
 
             public void onClick (View v) {
-                Intent i = new Intent(Hierarchy.this, ListOfRulesActivity.class);
-                startActivity(i);
+                finish();return;
             }
 
 

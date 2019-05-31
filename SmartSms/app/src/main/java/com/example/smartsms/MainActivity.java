@@ -105,6 +105,10 @@ public class MainActivity extends AppCompatActivity implements MessageListener, 
         startActivity(i);
     }
 
+    public void HierarchyView(){
+        Intent i = new Intent(MainActivity.this, Hierarchy.class);
+        startActivity(i);
+    }
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
         if (viewHolder instanceof RecyclerViewAdapter.MyViewHolder) {
@@ -140,6 +144,11 @@ public class MainActivity extends AppCompatActivity implements MessageListener, 
             }
             case R.id.action_rule: {
                 RuleListView();
+                return true;
+
+            }
+            case R.id.action_hierarchy: {
+                HierarchyView();
                 return true;
 
             }

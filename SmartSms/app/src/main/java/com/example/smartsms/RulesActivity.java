@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -68,7 +69,7 @@ public class RulesActivity extends AppCompatActivity implements View.OnTouchList
         floatingButton.setOnTouchListener(this);
 
         ImageButton backButton=findViewById(R.id.BackButton);
-        ImageButton okButton=findViewById(R.id.OKButton);
+        Button okButton=findViewById(R.id.OKButton);
         name = (TextView) findViewById(R.id.editTextName);
         phone = (TextView) findViewById(R.id.editTextPhone);
         keyWords = (TextView) findViewById(R.id.editTextKeyWords);

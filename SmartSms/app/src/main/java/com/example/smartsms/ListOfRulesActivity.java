@@ -80,16 +80,7 @@ public class ListOfRulesActivity extends AppCompatActivity{
 
         });
 
-        ImageButton editButton=findViewById(R.id.EditButton);
-        editButton.setOnClickListener(new  View.OnClickListener() {
 
-            public void onClick (View v) {
-
-                RuleListView();return;
-            }
-
-
-        });
 
         deleteButton.setOnClickListener(new  View.OnClickListener(){
             public void onClick (View v) {
