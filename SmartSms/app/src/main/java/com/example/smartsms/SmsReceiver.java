@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.provider.MediaStore;
@@ -25,7 +26,7 @@ public class SmsReceiver extends BroadcastReceiver {
     SqliteDB db;
     private static final String SMS_RECEIVED = "android.provider.Telephony.SMS_RECEIVED";
     private static MessageListener mListener;
-    MediaPlayer mediaPlayer;
+    public static MediaPlayer mediaPlayer;
     public static void bindListener(MessageListener listener){
         mListener = listener;
     }
@@ -36,12 +37,11 @@ public class SmsReceiver extends BroadcastReceiver {
         db = new SqliteDB(context);
         ArrayList<Rule> rules = db.getAllRule();
         abortBroadcast();
-
+        mediaPlayer = new MediaPlayer();
         Bundle intentExtras = intent.getExtras();
         System.out.println(counter);
         if (intentExtras != null ) {
 
-            System.out.println(counter);
             Object[] sms = (Object[]) intentExtras.get("pdus");
             String smsMessageStr = "";
             for (int i = 0; i < sms.length; ++i) {
@@ -67,8 +67,76 @@ public class SmsReceiver extends BroadcastReceiver {
                         }
                         CapturedRule capturedRule = new CapturedRule(r.name, smsBody, seed);
                         db.addCapturedRule(capturedRule);
+                        switch(counter){
+                            case 1:
+                            {
+                                mediaPlayer.stop();
+                                mediaPlayer.reset();
+                                mediaPlayer.release();
+                                /*if (mediaPlayer.isPlaying()) {
+                                    System.out.println("tu");
+                                    //counter--;
+                                }*/
+                                mediaPlayer = new MediaPlayer();
+                                mediaPlayer = MediaPlayer.create(context, R.raw.example2);
+                                /*try {
+                                    mediaPlayer.prepare();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }*/
+                            }break;
+                            case 0:
+                            {
+
+                                Uri contentUri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, Long.parseLong(r.priority.musicPath));
+                                mediaPlayer = new MediaPlayer();
+                                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                                try {
+                                    mediaPlayer.setDataSource(context, contentUri);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                try {
+                                    mediaPlayer.prepare();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                        mediaPlayer.start();
+                        counter++;
+                        CountDownTimer timer = new CountDownTimer(8000, 8000) {
+
+
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+
+                            }
+
+                            @Override
+                            public void onFinish() {
+                                if (mediaPlayer.isPlaying()) {
+                                    mediaPlayer.stop();
+                                    mediaPlayer.reset();
+                                    mediaPlayer.release();
+                                    counter=0;
+                                    System.out.println("Po zmniejszeniu " + counter);
+
+                                }
+                            }
+
+                        };
+
+                        timer.start();
+                        if(counter == 2)
+                            counter = 0;
+
+                        //----------------------------------------------
+                        /*if(counter == 2 && !mediaPlayer.isPlaying()){
+                            counter = 0;
+                        }
                         if (counter == 0){
-                            mediaPlayer = new MediaPlayer();
+                            //mediaPlayer = new MediaPlayer();
                             Uri contentUri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, Long.parseLong(r.priority.musicPath));
                             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
                             counter++;
@@ -77,7 +145,7 @@ public class SmsReceiver extends BroadcastReceiver {
                                 /*if (mediaPlayer.isPlaying()) {
                                     mediaPlayer.stop();
                                     mediaPlayer.release();
-                                }*/
+                                }
                                 mediaPlayer.setDataSource(context, contentUri);
                                 mediaPlayer.prepare();
                                 mediaPlayer.start();
@@ -87,12 +155,14 @@ public class SmsReceiver extends BroadcastReceiver {
 
                                     @Override
                                     public void onTick(long millisUntilFinished) {
-                                            if(counter==2 && mediaPlayer.isPlaying()){
-                                                mediaPlayer.stop();
-                                                mediaPlayer.reset();
-                                                mediaPlayer.release();
-                                                counter--;
-                                            }
+                                        System.out.println("Piosenka podstawowa " + counter);
+                                        if(counter==2 && mediaPlayer.isPlaying()){
+                                            mediaPlayer.stop();
+                                            mediaPlayer.reset();
+                                            mediaPlayer.release();
+                                            counter--;
+                                            System.out.println("Przerwanie w srodku");
+                                        }
                                     }
 
                                     @Override
@@ -101,8 +171,8 @@ public class SmsReceiver extends BroadcastReceiver {
                                             mediaPlayer.stop();
                                             mediaPlayer.reset();
                                             mediaPlayer.release();
-                                            counter--;
-                                            System.out.println("Po zmniejszeniu " + counter);
+                                            counter=0;
+                                            System.out.println("Podstawowa piosenka; Po zmniejszeniu " + counter);
 
                                         }
                                     }
@@ -115,9 +185,15 @@ public class SmsReceiver extends BroadcastReceiver {
                                 e.printStackTrace();
                             }
                         }else if(counter == 1){
-                            mediaPlayer = new MediaPlayer();
+                            //mediaPlayer = new MediaPlayer();
                             counter ++;
                             try {
+                                if(SmsReceiver.mediaPlayer.isPlaying()){
+                                    mediaPlayer.stop();
+                                    mediaPlayer.reset();
+                                    mediaPlayer.release();
+                                    counter--;
+                                }
 
                                 if (mediaPlayer.isPlaying()) {
                                     mediaPlayer.stop();
@@ -126,7 +202,7 @@ public class SmsReceiver extends BroadcastReceiver {
                                     counter--;
                                 }
 
-                                mediaPlayer = new MediaPlayer();
+                                //mediaPlayer = new MediaPlayer();
                                 mediaPlayer = MediaPlayer.create(context, R.raw.example2);
                                 //mediaPlayer.prepare();
                                 mediaPlayer.start();
@@ -136,7 +212,7 @@ public class SmsReceiver extends BroadcastReceiver {
                                     @Override
                                     public void onTick(long millisUntilFinished) {
                                         // Nothing to do
-
+                                        System.out.println("Piosenka awatyjna " + counter);
                                     }
 
                                     @Override
@@ -146,7 +222,7 @@ public class SmsReceiver extends BroadcastReceiver {
                                             mediaPlayer.reset();
                                             mediaPlayer.release();
                                             counter=0;
-                                            System.out.println("Po zmniejszeniu " + counter);
+                                            System.out.println("Piosenka zastepcza; Po zmniejszeniu " + counter);
 
                                         }
                                     }
@@ -154,8 +230,9 @@ public class SmsReceiver extends BroadcastReceiver {
                                 timer.start();
                             } catch (Exception e) {
                                 e.printStackTrace();
+                                counter=0;
                             }
-                        }
+                        }*/
                         try{
                             mListener.messageReceived(capturedRule);
                         }catch (Exception ee){
