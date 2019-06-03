@@ -8,5 +8,6 @@
     <color name="item_name">#535353</color>
     <color name="description">#FFFFFF</color>
     <color name="color_stroke">#BED5F4</color>
+    <color name="grey_color">#968989</color>
     color_stroke
 </resources>

@@ -239,14 +239,14 @@
                 tools:layout_editor_absoluteY="401dp" />
 
             <ImageButton
-                android:id="@+id/blackButton"
+                android:id="@+id/violetButton"
                 android:layout_width="80dp"
                 android:layout_height="60dp"
                 android:contentDescription="@android:string/untitled"
                 android:onClick="onClick"
                 android:padding="6dp"
-                android:tag="@android:color/black"
-                app:srcCompat="@android:color/black"
+                android:tag="@android:color/darker_gray"
+                app:srcCompat="@android:color/holo_purple"
                 tools:layout_editor_absoluteX="188dp"
                 tools:layout_editor_absoluteY="412dp" />
 

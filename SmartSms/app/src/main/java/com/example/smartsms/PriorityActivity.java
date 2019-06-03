@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.provider.MediaStore;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -52,6 +53,8 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
     ImageButton imgSelectedButton;
     ImageButton colorSelectedButton;
 
+    private TextInputLayout InputName;
+
     EditText text;
 
     ImageButton goBackButton;
@@ -78,6 +81,8 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
 
         goBackButton = (ImageButton) findViewById(R.id.returnPriorityButton);
         goBackButton.setOnClickListener(this);
+
+        //InputName =  findViewById(R.id.priorityNameText);
 
         createButton = (Button) findViewById(R.id.createPriorityButton);
         createButton.setOnClickListener(this);
@@ -109,6 +114,8 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
                 colorButtonsVector.add(imgButton);
             }
         }
+        this.colorSelectedButton = colorButtonsVector.firstElement();
+        this.imgSelectedButton = imgButtonsVector.firstElement();
 
         if (ContextCompat.checkSelfPermission(PriorityActivity.this,
                 Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -250,6 +257,7 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
 
     void addPriority(){
 
+
         String colorCode = (String)this.colorSelectedButton.getTag();
 
         String imgCode= (String)this.imgSelectedButton.getTag();
@@ -259,6 +267,19 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
         String ringtonePath = idSongsVector.get(ringtoneId).toString();
 
         String textName = text.getText().toString();
+
+
+        if(textName.length()<1)
+        {
+            //InputName.setError("Field can't be empty");
+            Toast.makeText(getBaseContext(), "You didn't give name to Priority!!!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+       // if(textName==""){
+       //     Toast.makeText(getBaseContext(), "You didn't give name to Priority!!!", Toast.LENGTH_SHORT).show();
+        //    return;
+        //}
 
         //Adding priority
        Priority priority = new Priority(textName,colorCode,imgCode,ringtonePath);

@@ -2,6 +2,7 @@ package com.example.smartsms;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -27,6 +28,8 @@ public class PriorityHierarchyActivity extends AppCompatActivity implements View
     private String nameDelete;
     private CustomAdapter addapter;
     private PriorityHierarchyActivity.CustomAdapter adapter;
+    private List<ColorPriority> hierarchy;
+    private List<String> colors;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,7 @@ public class PriorityHierarchyActivity extends AppCompatActivity implements View
         populateList();
         listPriority=(ListView) findViewById(R.id.listPriorities);
         listPriority.setClickable(true);
+
 
         addapter=new PriorityHierarchyActivity.CustomAdapter (priorities,getApplicationContext());
         listPriority.setAdapter(addapter);
@@ -68,16 +72,19 @@ public class PriorityHierarchyActivity extends AppCompatActivity implements View
 
         });
 
-       // ImageButton editButton=findViewById(R.id.EditButton);
-       // editButton.setOnClickListener(new  View.OnClickListener() {
+        /*
+        ImageButton editButton=findViewById(R.id.EditButton);
+        editButton.setOnClickListener(new  View.OnClickListener() {
 
-         //   public void onClick (View v) {
+            public void onClick (View v) {
 
-         //       RuleListView();return;
-          //  }
+                PriorityListView();
+                return;
+            }
 
 
-       // });
+        });
+*/
 
         deleteButton.setOnClickListener(new  View.OnClickListener(){
             public void onClick (View v) {
@@ -86,7 +93,6 @@ public class PriorityHierarchyActivity extends AppCompatActivity implements View
                     db.deletePriority(nameDelete);
                     Toast.makeText(PriorityHierarchyActivity.this,"Priority "+nameDelete+" was deleted",Toast.LENGTH_LONG).show();
 
-                    //  rules.remove(position);
                     populateList();
                     addapter=new PriorityHierarchyActivity.CustomAdapter(priorities,getApplicationContext());
                     listPriority.setAdapter(addapter);
@@ -107,7 +113,6 @@ public class PriorityHierarchyActivity extends AppCompatActivity implements View
 
         priorityName = new ArrayList<String>();
         ringtonesList = new ArrayList<String>();
-        //rulesKeyWords = new ArrayList<String>();
 
     }
 
@@ -139,10 +144,13 @@ public class PriorityHierarchyActivity extends AppCompatActivity implements View
             convertView=getLayoutInflater().inflate(R.layout.custom_priority_list_view,parent,false);
 
             TextView name=(TextView)convertView.findViewById(R.id.textPriorityName);
-            TextView ringtone=(TextView)convertView.findViewById(R.id.textViewPriorityRingtone);
-
-            name.setText("name: "+dataSet.get(position).name.toString());
-            //ringtone.setText("ringtone: " + dataSet.get(position).color);
+            TextView color=(TextView)convertView.findViewById(R.id.textViewPriorityColor);
+            String colorString = dataSet.get(position).color.toString();
+            name.setText("Priority name: ");
+            //name.setTextColor(Color.parseColor(colorString));
+            name.setBackgroundColor(Color.parseColor(colorString));
+            color.setText("        " +dataSet.get(position).name.toString());
+            color.setBackgroundColor(Color.parseColor(colorString));
 
             return convertView;
         }
