@@ -25,28 +25,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/PriorityName"
+            android:gravity="center"
             android:inputType="textShortMessage" />
     </android.support.design.widget.TextInputLayout>
 
     <HorizontalScrollView
         android:id="@+id/imageScrollView"
-        android:layout_width="395dp"
+        android:layout_width="375dp"
         android:layout_height="99dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
         android:layout_marginBottom="50dp"
+        android:layout_marginEnd="16dp"
         android:fillViewport="true"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginRight="16dp">
 
         <LinearLayout
+            android:id="@+id/imageLayout"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:animateLayoutChanges="true"
-            android:id="@+id/imageLayout"
             android:gravity="center"
             android:orientation="horizontal"
             android:padding="6dp">
@@ -55,13 +58,11 @@
                 android:id="@+id/imageButton1"
                 android:layout_width="80dp"
                 android:layout_height="75dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
                 android:backgroundTint="@color/colorPrimary"
                 android:contentDescription="@android:string/untitled"
                 android:onClick="onClick"
-                app:layout_constraintStart_toStartOf="parent"
                 android:tag="@android:drawable/ic_dialog_info"
+                app:layout_constraintStart_toStartOf="parent"
                 app:srcCompat="@android:drawable/ic_dialog_info"
                 tools:layout_editor_absoluteY="183dp" />
 
@@ -154,15 +155,18 @@
 
     <HorizontalScrollView
         android:id="@+id/colorScrollView"
-        android:layout_width="395dp"
+        android:layout_width="378dp"
         android:layout_height="86dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.492">
 
         <LinearLayout
             android:id="@+id/colorLayout"
@@ -171,30 +175,6 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/blueButton"
-                android:layout_width="80dp"
-                android:layout_height="60dp"
-                android:contentDescription="@android:string/untitled"
-                android:onClick="onClick"
-                android:padding="6dp"
-                app:srcCompat="@android:color/holo_blue_dark"
-                android:tag="@android:color/holo_blue_dark"
-                tools:layout_editor_absoluteX="337dp"
-                tools:layout_editor_absoluteY="401dp" />
-
-            <ImageButton
-                android:id="@+id/greyButton"
-                android:layout_width="80dp"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:contentDescription="@android:string/untitled"
-                android:onClick="onClick"
-                android:padding="6dp"
-                app:srcCompat="@android:color/darker_gray"
-                android:tag="@android:color/darker_gray"
-                tools:layout_editor_absoluteX="488dp"
-                tools:layout_editor_absoluteY="336dp" />
 
             <ImageButton
                 android:id="@+id/redButton"
@@ -204,22 +184,34 @@
                 android:contentDescription="@android:string/untitled"
                 android:onClick="onClick"
                 android:padding="6dp"
-                app:srcCompat="@android:color/holo_red_dark"
                 android:tag="@android:color/holo_red_dark"
+                app:srcCompat="@android:color/holo_red_dark"
                 tools:layout_editor_absoluteX="8dp"
                 tools:layout_editor_absoluteY="383dp" />
 
             <ImageButton
-                android:id="@+id/blackButton"
+                android:id="@+id/orangeButton"
                 android:layout_width="80dp"
                 android:layout_height="60dp"
                 android:contentDescription="@android:string/untitled"
                 android:onClick="onClick"
                 android:padding="6dp"
-                app:srcCompat="@android:color/black"
-                android:tag="@android:color/black"
-                tools:layout_editor_absoluteX="188dp"
-                tools:layout_editor_absoluteY="412dp" />
+                android:tag="@android:color/holo_orange_dark"
+                app:srcCompat="@android:color/holo_orange_dark"
+                tools:layout_editor_absoluteX="260dp"
+                tools:layout_editor_absoluteY="408dp" />
+
+            <ImageButton
+                android:id="@+id/yellowButton"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:contentDescription="@android:string/untitled"
+                android:onClick="onClick"
+                android:padding="6dp"
+                app:srcCompat="@android:color/holo_orange_light"
+                tools:layout_editor_absoluteX="488dp"
+                tools:layout_editor_absoluteY="336dp" />
 
             <ImageButton
                 android:id="@+id/greenButton"
@@ -235,16 +227,28 @@
                 tools:layout_editor_absoluteY="379dp" />
 
             <ImageButton
-                android:id="@+id/orangeButton"
+                android:id="@+id/blueButton"
                 android:layout_width="80dp"
                 android:layout_height="60dp"
                 android:contentDescription="@android:string/untitled"
                 android:onClick="onClick"
                 android:padding="6dp"
-                app:srcCompat="@android:color/holo_orange_dark"
-                android:tag="@android:color/holo_orange_dark"
-                tools:layout_editor_absoluteX="260dp"
-                tools:layout_editor_absoluteY="408dp" />
+                android:tag="@android:color/holo_blue_dark"
+                app:srcCompat="@android:color/holo_blue_dark"
+                tools:layout_editor_absoluteX="337dp"
+                tools:layout_editor_absoluteY="401dp" />
+
+            <ImageButton
+                android:id="@+id/blackButton"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
+                android:contentDescription="@android:string/untitled"
+                android:onClick="onClick"
+                android:padding="6dp"
+                android:tag="@android:color/black"
+                app:srcCompat="@android:color/black"
+                tools:layout_editor_absoluteX="188dp"
+                tools:layout_editor_absoluteY="412dp" />
 
         </LinearLayout>
     </HorizontalScrollView>
@@ -262,6 +266,7 @@
         android:animationCache="false"
         android:spinnerMode="dropdown"
         android:visibility="visible"
+        android:background="@drawable/dark_border"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -290,25 +295,26 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_weight="1"
-                android:background="@color/colorPrimaryDark"
-                android:backgroundTint="@color/colorPrimaryDark"
                 android:contentDescription="@android:string/cancel"
                 android:focusableInTouchMode="true"
                 android:onClick="onClick"
                 android:padding="0dp"
+                android:background="@drawable/button_border"
                 app:srcCompat="@android:drawable/ic_menu_revert" />
 
-            <ImageButton
+            <Button
                 android:id="@+id/createPriorityButton"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_weight="1"
-                android:background="@color/colorPrimaryDark"
-                android:backgroundTint="@color/colorPrimaryDark"
                 android:contentDescription="@android:string/ok"
                 android:onClick="onClick"
                 android:padding="0dp"
-                app:srcCompat="@android:drawable/ic_menu_add" />
+                android:text="ADD PRIORITY"
+                android:textColor="#ffffff"
+                android:background="@drawable/button_border"
+                app:srcCompat="@android:drawable/ic_menu_add"
+                tools:srcCompat="@mipmap/ic_ok" />
 
         </LinearLayout>
 

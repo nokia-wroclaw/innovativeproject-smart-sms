@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Switch
+        android:id="@+id/volumeSwitch"
+        android:layout_width="283dp"
+        android:layout_height="69dp"
+        android:layout_marginStart="174dp"
+        android:layout_marginLeft="174dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginBottom="628dp"
+        android:text="Day/Night Mode"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.873"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.333" />
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        style="@style/AlertDialog.AppCompat.Light"
+        android:layout_width="412dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="20dp"
+        android:padding="0dp"
+        app:itemBackground="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_centerHorizontal="true">
+
+        <LinearLayout
+            android:layout_width="410dp"
+            android:layout_height="75dp"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/returnSettingsButton"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:contentDescription="@android:string/cancel"
+                android:focusableInTouchMode="true"
+                android:onClick="onClick"
+                android:padding="0dp"
+                android:background="@drawable/button_border"
+                app:srcCompat="@android:drawable/ic_menu_revert" />
+
+            <Button
+                android:id="@+id/changeSettingsButton"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:text = "Change"
+                android:textColor="#ffffff"
+                android:gravity="center"
+                android:contentDescription="@android:string/ok"
+                android:onClick="onClick"
+                android:padding="0dp"
+                android:background="@drawable/button_border"
+                app:srcCompat="@android:drawable/ic_menu_add"
+                tools:srcCompat="@mipmap/ic_ok" />
+
+        </LinearLayout>
+
+    </android.support.design.widget.BottomNavigationView>
+
+</android.support.constraint.ConstraintLayout>

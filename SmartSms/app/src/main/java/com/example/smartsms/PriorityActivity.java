@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -54,7 +55,7 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
     EditText text;
 
     ImageButton goBackButton;
-    ImageButton createButton;
+    Button createButton;
 
     private SqliteDB dataBase;
 
@@ -78,7 +79,7 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
         goBackButton = (ImageButton) findViewById(R.id.returnPriorityButton);
         goBackButton.setOnClickListener(this);
 
-        createButton = (ImageButton) findViewById(R.id.createPriorityButton);
+        createButton = (Button) findViewById(R.id.createPriorityButton);
         createButton.setOnClickListener(this);
 
         text = (EditText)findViewById(R.id.priorityNameText);

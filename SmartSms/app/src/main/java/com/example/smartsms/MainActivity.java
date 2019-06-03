@@ -108,6 +108,16 @@ public class MainActivity extends AppCompatActivity implements MessageListener, 
         Intent i = new Intent(MainActivity.this, Hierarchy.class);
         startActivity(i);
     }
+
+    public void priorityMenuManagementView(){
+        Intent i = new Intent(MainActivity.this, PriorityHierarchyActivity.class);
+        startActivity(i);
+    }
+    public void settingsView(){
+        Intent i = new Intent(MainActivity.this, SettingsActivity.class);
+        startActivity(i);
+    }
+
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
         if (viewHolder instanceof RecyclerViewAdapter.MyViewHolder) {
@@ -145,6 +155,14 @@ public class MainActivity extends AppCompatActivity implements MessageListener, 
                 RuleListView();
                 return true;
 
+            }
+            case R.id.action_settings: {
+                settingsView();
+                return true;
+            }
+            case R.id.action_priorityManagement: {
+                priorityMenuManagementView();
+                return true;
             }
             case R.id.action_hierarchy: {
                 HierarchyView();
