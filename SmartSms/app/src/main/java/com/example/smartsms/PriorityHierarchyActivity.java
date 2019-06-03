@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -62,7 +63,7 @@ public class PriorityHierarchyActivity extends AppCompatActivity implements View
         ;
 
         ImageButton backButton=findViewById(R.id.BackButtonP);
-        final ImageButton deleteButton=findViewById(R.id.DeleteButtonP);
+        final Button deleteButton=findViewById(R.id.DeleteButtonP);
         backButton.setOnClickListener(new  View.OnClickListener() {
 
             public void onClick (View v) {

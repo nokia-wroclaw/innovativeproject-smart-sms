@@ -36,11 +36,13 @@
                 android:background="@drawable/button_border"
                 app:srcCompat="@android:drawable/ic_menu_revert" />
 
-            <ImageButton
+            <Button
                 android:id="@+id/DeleteButtonP"
                 android:layout_width="201dp"
                 android:layout_height="60dp"
                 android:layout_weight="1"
+                android:text="DELETE"
+                android:textColor="#ffffff"
                 android:background="@drawable/button_border"
                 android:backgroundTint="@color/colorPrimaryDark"
                 android:contentDescription="@android:string/ok"
