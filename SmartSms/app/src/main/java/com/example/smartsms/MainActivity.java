@@ -165,6 +165,7 @@ public class MainActivity extends AppCompatActivity implements MessageListener, 
                 return true;
             }
             case R.id.action_hierarchy: {
+                
                 HierarchyView();
                 return true;
 

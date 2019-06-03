@@ -25,6 +25,7 @@ public class Hierarchy extends AppCompatActivity {
     private SqliteDB sqldb;
 
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.hierarchy_layout);
 
