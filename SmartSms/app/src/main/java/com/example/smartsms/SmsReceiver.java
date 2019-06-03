@@ -21,6 +21,7 @@ import java.util.*;
 
 public class SmsReceiver extends BroadcastReceiver {
 
+    public static int counter = 0;
     SqliteDB db;
     private static final String SMS_RECEIVED = "android.provider.Telephony.SMS_RECEIVED";
     private static MessageListener mListener;
@@ -37,7 +38,10 @@ public class SmsReceiver extends BroadcastReceiver {
         abortBroadcast();
 
         Bundle intentExtras = intent.getExtras();
-        if (intentExtras != null) {
+        System.out.println(counter);
+        if (intentExtras != null ) {
+
+            System.out.println(counter);
             Object[] sms = (Object[]) intentExtras.get("pdus");
             String smsMessageStr = "";
             for (int i = 0; i < sms.length; ++i) {
@@ -53,42 +57,104 @@ public class SmsReceiver extends BroadcastReceiver {
                         play = true;
                     }
 
-                    if(play){
-                        mediaPlayer = new MediaPlayer();
-                        Uri contentUri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,  Long.parseLong( r.priority.musicPath ));
-                        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                    if(play) {
+
                         ArrayList<CapturedRule> list = db.getAllCapturedRule();
                         Random random = new Random();
                         int seed = random.nextInt();
-                        while(!isSeedFree(seed,list)){
+                        while (!isSeedFree(seed, list)) {
                             seed = random.nextInt();
                         }
-                        CapturedRule capturedRule = new CapturedRule(r.name,smsBody,seed);
+                        CapturedRule capturedRule = new CapturedRule(r.name, smsBody, seed);
                         db.addCapturedRule(capturedRule);
-                        try {
+                        if (counter == 0){
+                            mediaPlayer = new MediaPlayer();
+                            Uri contentUri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, Long.parseLong(r.priority.musicPath));
+                            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                            counter++;
+                            try {
 
-                            mediaPlayer.setDataSource(context, contentUri);
-                            mediaPlayer.prepare();
-                            mediaPlayer.start();
+                                /*if (mediaPlayer.isPlaying()) {
+                                    mediaPlayer.stop();
+                                    mediaPlayer.release();
+                                }*/
+                                mediaPlayer.setDataSource(context, contentUri);
+                                mediaPlayer.prepare();
+                                mediaPlayer.start();
 
-                            CountDownTimer timer = new CountDownTimer(8000, 8000) {
+                                CountDownTimer timer = new CountDownTimer(8000, 8000) {
 
-                                @Override
-                                public void onTick(long millisUntilFinished) {
-                                    // Nothing to do
-                                }
 
-                                @Override
-                                public void onFinish() {
-                                    if (mediaPlayer.isPlaying()) {
-                                        mediaPlayer.stop();
-                                        mediaPlayer.release();
+                                    @Override
+                                    public void onTick(long millisUntilFinished) {
+                                            if(counter==2 && mediaPlayer.isPlaying()){
+                                                mediaPlayer.stop();
+                                                mediaPlayer.reset();
+                                                mediaPlayer.release();
+                                                counter--;
+                                            }
                                     }
+
+                                    @Override
+                                    public void onFinish() {
+                                        if (mediaPlayer.isPlaying()) {
+                                            mediaPlayer.stop();
+                                            mediaPlayer.reset();
+                                            mediaPlayer.release();
+                                            counter--;
+                                            System.out.println("Po zmniejszeniu " + counter);
+
+                                        }
+                                    }
+
+                                };
+
+                                timer.start();
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }else if(counter == 1){
+                            mediaPlayer = new MediaPlayer();
+                            counter ++;
+                            try {
+
+                                if (mediaPlayer.isPlaying()) {
+                                    mediaPlayer.stop();
+                                    mediaPlayer.reset();
+                                    mediaPlayer.release();
+                                    counter--;
                                 }
-                            };
-                            timer.start();
-                        } catch (IOException e) {
-                            e.printStackTrace();
+
+                                mediaPlayer = new MediaPlayer();
+                                mediaPlayer = MediaPlayer.create(context, R.raw.example2);
+                                //mediaPlayer.prepare();
+                                mediaPlayer.start();
+
+                                CountDownTimer timer = new CountDownTimer(8000, 8000) {
+
+                                    @Override
+                                    public void onTick(long millisUntilFinished) {
+                                        // Nothing to do
+
+                                    }
+
+                                    @Override
+                                    public void onFinish() {
+                                        if (mediaPlayer.isPlaying()) {
+                                            mediaPlayer.stop();
+                                            mediaPlayer.reset();
+                                            mediaPlayer.release();
+                                            counter=0;
+                                            System.out.println("Po zmniejszeniu " + counter);
+
+                                        }
+                                    }
+                                };
+                                timer.start();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
                         try{
                             mListener.messageReceived(capturedRule);
