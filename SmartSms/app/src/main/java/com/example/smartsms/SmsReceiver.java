@@ -42,8 +42,14 @@ public class SmsReceiver extends BroadcastReceiver {
             mediaPlayer = new MediaPlayer();
 
         }
-        if(!mediaPlayer.isPlaying()){
-            counter=0;
+        try{
+
+            if(!mediaPlayer.isPlaying()){
+                counter=0;
+                mediaPlayer = new MediaPlayer();
+            }
+        }catch (Exception e){
+            counter = 0;
             mediaPlayer = new MediaPlayer();
         }
         Bundle intentExtras = intent.getExtras();
@@ -78,6 +84,9 @@ public class SmsReceiver extends BroadcastReceiver {
                         switch(counter){
                             case 1:
                             {
+                                if(mediaPlayer==null){
+                                    mediaPlayer = new MediaPlayer();
+                                }
                                 mediaPlayer.stop();
                                 mediaPlayer.reset();
                                 mediaPlayer.release();
@@ -87,8 +96,12 @@ public class SmsReceiver extends BroadcastReceiver {
                             case 0:
                             {
                                 Uri contentUri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, Long.parseLong(r.priority.musicPath));
+                                if(mediaPlayer==null){
+                                    mediaPlayer = new MediaPlayer();
+                                }
                                 mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
                                 try {
+
                                     if (mediaPlayer.isPlaying()) {
                                         mediaPlayer.stop();
                                         mediaPlayer.reset();
@@ -114,22 +127,28 @@ public class SmsReceiver extends BroadcastReceiver {
                         if(counter <= 2 ){
 
                             timer = new CountDownTimer(8000, 8000) {
-
+                                MediaPlayer mp= new MediaPlayer();
 
                                 @Override
                                 public void onTick(long millisUntilFinished) {
-
+                                    mp  = mediaPlayer;
                                 }
 
                                 @Override
                                 public void onFinish() {
-                                    if (mediaPlayer.isPlaying()) {
-                                        mediaPlayer.stop();
-                                        mediaPlayer.reset();
-                                        mediaPlayer.release();
-                                        counter=0;
-                                        System.out.println("Po zmniejszeniu " + counter);
+                                    if(mediaPlayer==null){
+                                        mediaPlayer = new MediaPlayer();
+                                    }
+                                    if(mp == mediaPlayer){
 
+                                        //if (mediaPlayer.isPlaying()) {
+                                            mediaPlayer.stop();
+                                            mediaPlayer.reset();
+                                            mediaPlayer.release();
+                                            counter=0;
+                                            System.out.println("Po zmniejszeniu " + counter);
+
+                                        //}
                                     }
                                 }
 
