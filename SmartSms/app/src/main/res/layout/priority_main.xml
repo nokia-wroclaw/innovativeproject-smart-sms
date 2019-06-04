@@ -31,19 +31,19 @@
 
     <HorizontalScrollView
         android:id="@+id/imageScrollView"
-        android:layout_width="375dp"
-        android:layout_height="99dp"
+        android:layout_width="380dp"
+        android:layout_height="96dp"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
-        android:layout_marginBottom="50dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="48dp"
         android:fillViewport="true"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginRight="16dp">
+        app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
             android:id="@+id/imageLayout"
@@ -51,8 +51,7 @@
             android:layout_height="match_parent"
             android:animateLayoutChanges="true"
             android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="6dp">
+            android:orientation="horizontal">
 
             <ImageButton
                 android:id="@+id/imageButton1"
@@ -155,7 +154,7 @@
 
     <HorizontalScrollView
         android:id="@+id/colorScrollView"
-        android:layout_width="378dp"
+        android:layout_width="380dp"
         android:layout_height="86dp"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"

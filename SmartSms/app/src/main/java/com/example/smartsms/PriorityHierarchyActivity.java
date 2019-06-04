@@ -73,19 +73,6 @@ public class PriorityHierarchyActivity extends AppCompatActivity implements View
 
         });
 
-        /*
-        ImageButton editButton=findViewById(R.id.EditButton);
-        editButton.setOnClickListener(new  View.OnClickListener() {
-
-            public void onClick (View v) {
-
-                PriorityListView();
-                return;
-            }
-
-
-        });
-*/
 
         deleteButton.setOnClickListener(new  View.OnClickListener(){
             public void onClick (View v) {
@@ -116,11 +103,6 @@ public class PriorityHierarchyActivity extends AppCompatActivity implements View
         ringtonesList = new ArrayList<String>();
 
     }
-
-    //public void PriorityListView(){
-     //   Intent i = new Intent(PriorityHierarchyActivity.this, Hierarchy.class);
-     //   startActivity(i);
-    //}
 
     @Override
     public void onClick(View v) {

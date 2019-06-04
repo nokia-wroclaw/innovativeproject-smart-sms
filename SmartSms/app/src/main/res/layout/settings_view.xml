@@ -112,7 +112,7 @@
         app:layout_constraintVertical_bias="0.26" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonImport"
         android:layout_width="101dp"
         android:layout_height="49dp"
         android:layout_marginStart="8dp"
@@ -131,7 +131,7 @@
         app:layout_constraintVertical_bias="0.183" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/buttonExport"
         android:layout_width="103dp"
         android:layout_height="55dp"
         android:layout_marginStart="8dp"

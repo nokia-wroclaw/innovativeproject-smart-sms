@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 public class WelcomeActivity extends AppCompatActivity {
     private static int TIME_OUT = 2000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

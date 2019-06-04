@@ -43,7 +43,6 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
     //Media Player
     MediaPlayer mediaPlayer;
 
-
     //Containers For Buttons
     Vector<ImageButton> imgButtonsVector;
     Vector<ImageButton> colorButtonsVector;
@@ -53,16 +52,14 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
     ImageButton imgSelectedButton;
     ImageButton colorSelectedButton;
 
-    private TextInputLayout InputName;
-
     EditText text;
 
     ImageButton goBackButton;
     Button createButton;
 
     private SqliteDB dataBase;
-
     CountDownTimer timer;
+    Mode mode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,8 +78,6 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
 
         goBackButton = (ImageButton) findViewById(R.id.returnPriorityButton);
         goBackButton.setOnClickListener(this);
-
-        //InputName =  findViewById(R.id.priorityNameText);
 
         createButton = (Button) findViewById(R.id.createPriorityButton);
         createButton.setOnClickListener(this);
@@ -219,12 +214,10 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
         Cursor songCursor = contentResolver.query(songUri, null,null,null,null,null);
         if(songCursor != null && songCursor.moveToFirst()){
             int songTitle = songCursor.getColumnIndex(MediaStore.Audio.Media.TITLE);
-            //int songArtist = songCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST);
 
             do {
 
                 String currentTitle = songCursor.getString(songTitle);
-               // String currentArtist = songCursor.getString(songArtist);
                 long currentId = songCursor.getLong(songCursor.getColumnIndex(MediaStore.Audio.Media._ID));
                 ringtoneString.add(currentTitle);
                 idSongsVector.add(currentId);
@@ -259,27 +252,21 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
 
 
         String colorCode = (String)this.colorSelectedButton.getTag();
-
         String imgCode= (String)this.imgSelectedButton.getTag();
-
         String ringtoneName =  ringtoneSpinnerList.getSelectedItem().toString();
         int ringtoneId =  ringtoneString.indexOf(ringtoneName);
         String ringtonePath = idSongsVector.get(ringtoneId).toString();
-
         String textName = text.getText().toString();
 
 
         if(textName.length()<1)
         {
-            //InputName.setError("Field can't be empty");
             Toast.makeText(getBaseContext(), "You didn't give name to Priority!!!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-       // if(textName==""){
-       //     Toast.makeText(getBaseContext(), "You didn't give name to Priority!!!", Toast.LENGTH_SHORT).show();
-        //    return;
-        //}
+        mode = new Mode(textName,true);
+        dataBase.addMode(mode);
 
         //Adding priority
        Priority priority = new Priority(textName,colorCode,imgCode,ringtonePath);
@@ -300,12 +287,9 @@ public class PriorityActivity extends AppCompatActivity implements View.OnClickL
         int tmpId = v.getId();
 
        for(int i = 0; i <this.colorButtonsVector.size(); i++){
-           if(colorButtonsVector.get(i).getId()==tmpId) {
-
-              // colorButtonsVector.get(i).findFocus().clearFocus();
+           if(colorButtonsVector.get(i).getId()==tmpId)
+           {
                this.colorSelectedButton = colorButtonsVector.get(i);
-             // colorButtonsVector.get(i).requestFocus();
-
            }
        }
 
