@@ -72,6 +72,37 @@ public class MainActivity extends AppCompatActivity implements MessageListener, 
                 MY_PERMISSIONS_REQUEST_SMS_RECEIVE);
 
         SmsReceiver.bindListener(this);
+
+        sqldb.deletePriority("test");
+        sqldb.deletePriority("test1");
+        sqldb.deletePriority("test2");
+        sqldb.deletePriority("test3");
+
+        sqldb.deleteRule("zas312ada7");
+
+        sqldb.deleteCapturedRule(8754);
+        sqldb.deleteMode("nocny");
+        sqldb.deleteMode("dzienny");
+
+
+/*
+        CapturedRule capturedRule0 = new CapturedRule("test","nowy",8754);
+        sqldb.addCapturedRule(capturedRule0);
+
+        Priority priority = new Priority("test","RED","path1","path1");
+        sqldb.addPriority(priority);
+         priority = new Priority("test2","BLUE","path1","path1");
+        sqldb.addPriority(priority);
+         priority = new Priority("test3","GREEN","path1","path1");
+        sqldb.addPriority(priority);
+
+        Rule rule= new Rule("zas312ada7","st123op","5233",priority);
+        sqldb.addRule(rule);
+
+
+*/
+
+
     }
 
     @Override
