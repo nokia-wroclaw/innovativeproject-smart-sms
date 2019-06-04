@@ -37,8 +37,11 @@ public class MainActivity extends AppCompatActivity implements MessageListener, 
     MediaPlayer mediaPlayer;
     RecyclerViewAdapter adapter;
     List<CapturedRule> dataToView = new LinkedList<>();//new LinkedList<>(Arrays.asList("tekst", "tekst 2", "tekst 3", "tekst 4", "tekst 5", "tekst 6", "tekst 7", "tekst 8", "tekst 9", "tekst", "tekst 2", "tekst 3", "tekst 4", "tekst 5", "tekst 6", "tekst 7", "tekst 8", "tekst 9"));
+    List<CapturedRule> waitToView = new LinkedList<>();
     private LinearLayout linearLayout;
     private int MY_PERMISSIONS_REQUEST_SMS_RECEIVE = 10;
+    String statusMode = "status";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         sqldb = new SqliteDB(this);
@@ -51,8 +54,11 @@ public class MainActivity extends AppCompatActivity implements MessageListener, 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
+
         ArrayList<CapturedRule> capturedRules = sqldb.getAllCapturedRule();
         ArrayList<Rule> rules = sqldb.getAllRule();
+
+        /*
         for(CapturedRule cr : capturedRules){
             for(Rule r : rules){
                 if(cr.nameRule.equals(r.name)){
@@ -60,6 +66,31 @@ public class MainActivity extends AppCompatActivity implements MessageListener, 
                 }
             }
         }
+
+        */
+        if(sqldb.getMode(statusMode).IsOn == true){
+            for(CapturedRule cr : capturedRules){
+                for(Rule r : rules){
+                    if(cr.nameRule.equals(r.name)){
+                        if(sqldb.getMode(r.priority.name).IsOn==true) dataToView.add(cr);
+                            else waitToView.add(cr);
+                    }
+                }
+            }
+        }else {
+            for(CapturedRule cr : capturedRules){
+                for(Rule r : rules){
+                    if(cr.nameRule.equals(r.name)){
+                        dataToView.add(cr);
+                    }
+                }
+            }
+            if(!waitToView.isEmpty()){
+                    dataToView.addAll(waitToView);
+                    waitToView.clear();
+            }
+        }
+
 
         adapter = new RecyclerViewAdapter(this, dataToView);
         recyclerView.setAdapter(adapter);
