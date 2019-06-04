@@ -7,8 +7,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Switch;
 
-public class SettingsActivity extends AppCompatActivity implements View.OnClickListener  {
+import java.io.IOException;
 
+public class SettingsActivity extends AppCompatActivity implements View.OnClickListener  {
+    Button buttonOne, buttonTwo;
     Switch Switch1;
     ImageButton returnButton;
     Button changeButton;
@@ -25,6 +27,11 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         Switch1 = (Switch) findViewById(R.id.volumeSwitch);
         returnButton = (ImageButton) findViewById(R.id.returnSettingsButton);
         changeButton = (Button) findViewById(R.id.changeSettingsButton);
+
+        buttonOne = (Button) findViewById(R.id.button);
+        buttonTwo = (Button) findViewById(R.id.button2);
+        buttonOne.setOnClickListener(this);
+        buttonTwo.setOnClickListener(this);
 
     }
 
@@ -43,6 +50,26 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
         if(tmpId == this.returnButton.getId()){
             this.returnToMainButton();
+        }
+
+        if(tmpId==R.id.button)
+        {
+            try {
+                dataBase.importDatabase("/data/data/com.example.smartsms/databases/Sample.db");
+
+            } catch (
+                    IOException ie) {
+                ie.printStackTrace();
+            }
+        }
+        if (tmpId == R.id.button2) {
+            try {
+                dataBase.exportDatabase("/data/data/com.example.smartsms/databases/SampleExport.db");
+
+            } catch (
+                    IOException ie) {
+                ie.printStackTrace();
+            }
         }
     }
 }

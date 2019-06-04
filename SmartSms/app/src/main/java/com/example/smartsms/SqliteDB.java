@@ -57,7 +57,7 @@ public class SqliteDB extends SQLiteOpenHelper {
 
     public SqliteDB(Context context)
     {
-        super(context, DATABASE_NAME, null, 9);
+        super(context, DATABASE_NAME, null, 10);
         SQLiteDatabase db = this.getWritableDatabase();
     }
 
