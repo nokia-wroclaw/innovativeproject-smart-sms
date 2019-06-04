@@ -90,6 +90,7 @@ public class Hierarchy extends AppCompatActivity {
                     if(c.getString(c.getColumnIndex("COLOR")).equals("#ff000000"))color="black";
                     if(c.getString(c.getColumnIndex("COLOR")).equals("#ff669900"))color="green";
                     if(c.getString(c.getColumnIndex("COLOR")).equals("#ffff8800"))color="orange";
+                    if(c.getString(c.getColumnIndex("COLOR")).equals("#ffffbb33"))color="light orange";
                   //  color = c.getString(c.getColumnIndex("COLOR"));
                     if(color.equals("blad")){
                         Toast.makeText(Hierarchy.this,"there is not such a color " ,Toast.LENGTH_LONG).show();
@@ -111,6 +112,7 @@ public class Hierarchy extends AppCompatActivity {
         if(color.equals("black"))color="#ff000000";
         if(color.equals("green"))color="#ff669900";
         if(color.equals("orange"))color="#ffff8800";
+        if(color.equals("light orange"))color="#ffffbb33";
         String number = spinerList2.getSelectedItem().toString();
 
         sqldb.deleteColorPriority(color);

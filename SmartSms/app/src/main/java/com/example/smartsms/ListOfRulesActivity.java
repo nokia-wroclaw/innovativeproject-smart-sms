@@ -34,17 +34,29 @@ public class ListOfRulesActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.list_of_rules);
-///
-       db = new SqliteDB(this);
-   /*     db.addColorPriority(new ColorPriority("#ffcc0000",10));
-       // db.deleteColorPriority("#ffcc0000");db.deleteColorPriority("#ffcc0000");db.deleteColorPriority("#ffcc0000");
-        db.addColorPriority(new ColorPriority("#ff0099cc",9));
-        db.addColorPriority(new ColorPriority("#ffaaaaaa",8));
-        db.addColorPriority(new ColorPriority("#ff000000",7));
-        db.addColorPriority(new ColorPriority("#ff669900",6));
-        db.addColorPriority(new ColorPriority("#ffff8800",5));
-*/
+        db = new SqliteDB(this);
+        if(db.getAllColor().size()!=7)
+        {
+            ArrayList<ColorPriority> p=new ArrayList<ColorPriority>();
+            p=db.getAllColor();
+            int s=p.size();
+            for(int i=0;i<s;i++)
+            {
+                db.deleteColorPriority(p.get(i).color);
+            }
+
+            db.addColorPriority(new ColorPriority("#ffcc0000",10));
+            db.addColorPriority(new ColorPriority("#ffff8800",9));
+            db.addColorPriority(new ColorPriority("#ffffbb33",8));
+            db.addColorPriority(new ColorPriority("#ff0099cc",7));
+            db.addColorPriority(new ColorPriority("#ffaaaaaa",6));
+            db.addColorPriority(new ColorPriority("#ff000000",5));
+            db.addColorPriority(new ColorPriority("#ff669900",4));
+
+        }
+
 
         populateList();
         listRules=(ListView) findViewById(R.id.listRules);
