@@ -31,6 +31,7 @@ public class SmsReceiver extends BroadcastReceiver {
     public static void bindListener(MessageListener listener){
         mListener = listener;
     }
+    String statusMode = "status";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -79,8 +80,26 @@ public class SmsReceiver extends BroadcastReceiver {
                         while (!isSeedFree(seed, list)) {
                             seed = random.nextInt();
                         }
+                        //String namePriority;
                         CapturedRule capturedRule = new CapturedRule(r.name, smsBody, seed);
-                        db.addCapturedRule(capturedRule);
+                        if(db.getMode(statusMode).IsOn == true){
+                           if(db.getMode(r.priority.name).IsOn == true){
+                               String namePriority = db.getMode(r.priority.name).name;
+                               //System.out.println(db.getMode(r.priority.name).name);
+                               //Toast.makeText(SmsReceiver.this,"Status "+db.getMode(r.priority.name).name+" was !!!",Toast.LENGTH_LONG).show();
+                               db.addCapturedRule(capturedRule);
+                           }
+                           else
+                           {
+                               String namePriority = db.getMode(r.priority.name).name;
+                               String colorPriority = db.getPriority(r.priority.name).color;
+                               //CapturedRule capturedRule = new CapturedRule(r.name, smsBody, seed);
+                               db.addWaitCapturedRule(capturedRule);
+                           }
+                        }else {
+                           // CapturedRule capturedRule = new CapturedRule(r.name, smsBody, seed);
+                            db.addCapturedRule(capturedRule);
+                        }
                         switch(counter){
                             case 1:
                             {
@@ -122,7 +141,17 @@ public class SmsReceiver extends BroadcastReceiver {
 
                             }
                         }
-                        mediaPlayer.start();
+                        if(db.getMode(statusMode).IsOn == true){
+                            if(db.getMode(r.priority.name).IsOn == true) {
+                                mediaPlayer.start();
+                            }else {
+
+                            }
+                        }
+                        else {
+                            mediaPlayer.start();
+                        }
+
                         counter++;
                         if(counter <= 2 ){
 

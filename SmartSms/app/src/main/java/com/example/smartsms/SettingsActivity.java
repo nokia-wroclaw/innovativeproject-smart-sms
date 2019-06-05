@@ -98,12 +98,14 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
             priorities = dataBase.getAllPriority();
             for(int i = 0 ; i < priorities.size(); i++){
+                //Color.RED
                 if (!priorities.get(i).color.equals("#ffcc0000")){
                     tmpName = priorities.get(i).name;
                     if(dataBase.getMode(statusMode).IsOn == true) dataBase.setMode(tmpName,false);
                     else dataBase.setMode(tmpName,true);
                 }
             }
+            Toast.makeText(SettingsActivity.this,"Changes was made!! to " + dataBase.getMode(statusMode).IsOn,Toast.LENGTH_LONG).show();
         }
 
         if(tmpId == this.returnButton.getId()){

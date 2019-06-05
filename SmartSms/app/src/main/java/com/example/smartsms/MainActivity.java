@@ -56,22 +56,14 @@ public class MainActivity extends AppCompatActivity implements MessageListener, 
 
 
         ArrayList<CapturedRule> capturedRules = sqldb.getAllCapturedRule();
+        //ArrayList<CapturedRule> waitCapturedRules = sqldb.getAllWaitCapturedRule();
         ArrayList<Rule> rules = sqldb.getAllRule();
 
-        /*
-        for(CapturedRule cr : capturedRules){
-            for(Rule r : rules){
-                if(cr.nameRule.equals(r.name)){
-                    dataToView.add(cr);
-                }
-            }
-        }
-
-        */
         if(sqldb.getMode(statusMode).IsOn == true){
             for(CapturedRule cr : capturedRules){
                 for(Rule r : rules){
                     if(cr.nameRule.equals(r.name)){
+                        //Toast.makeText(MainActivity.this,"Status "+sqldb.getMode(r.priority.name).IsOn+" was !!!",Toast.LENGTH_LONG).show();
                         if(sqldb.getMode(r.priority.name).IsOn==true) dataToView.add(cr);
                             else waitToView.add(cr);
                     }
@@ -85,6 +77,14 @@ public class MainActivity extends AppCompatActivity implements MessageListener, 
                     }
                 }
             }
+            /*
+            for(CapturedRule cr : waitCapturedRules){
+                for(Rule r : rules){
+                    if(cr.nameRule.equals(r.name)){
+                        dataToView.add(cr);
+                    }
+                }
+            }*/
             if(!waitToView.isEmpty()){
                     dataToView.addAll(waitToView);
                     waitToView.clear();

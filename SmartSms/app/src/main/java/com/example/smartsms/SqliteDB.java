@@ -41,6 +41,7 @@ public class SqliteDB extends SQLiteOpenHelper {
     private static final String COL3_C="textSMS";
     private static final String COL4_C = "seed";
 
+
     private static final String TABLE_NAME4="Color";
     private static final String COL1_CO="ID";
     private static final String COL2_CO="color";
@@ -50,6 +51,12 @@ public class SqliteDB extends SQLiteOpenHelper {
     private static final String COL1_M="ID";
     private static final String COL2_M="name";
     private static final String COL3_M="IsON";
+
+    private static final String TABLE_NAME6="WaitCapturedRules";
+    private static final String COL1_W="ID";
+    private static final String COL2_W="ruleName";
+    private static final String COL3_W="textSMS";
+    private static final String COL4_W = "seed";
 
     public static String DB_FILEPATH = "/data/data/com.example.smartsms/databases/Database.db";
 
@@ -68,6 +75,7 @@ public class SqliteDB extends SQLiteOpenHelper {
         db.execSQL("create table " + TABLE_NAME3 +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,RULENAME TEXT,TEXTSMS TEXT,SEED INTEGER)");
         db.execSQL("create table " + TABLE_NAME4 +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,COLOR TEXT,COLOR_PRIORITY INTEGER)");
         db.execSQL("create table " + TABLE_NAME5 +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,NAME TEXT,IsOn BOOLEAN)");
+        db.execSQL("create table " + TABLE_NAME6 +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,RULENAME TEXT,TEXTSMS TEXT,SEED INTEGER)");
         db.execSQL("PRAGMA foreign_keys=ON;");
     }
 
@@ -78,6 +86,7 @@ public class SqliteDB extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME3);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME4);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME5);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME6);
         onCreate(db);
     }
 
@@ -254,6 +263,24 @@ public class SqliteDB extends SQLiteOpenHelper {
         }
     }
 
+    public boolean addWaitCapturedRule(CapturedRule capturedRule)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL2_W, capturedRule.nameRule);
+        contentValues.put(COL3_W, capturedRule.smsText);
+        contentValues.put(COL4_W,capturedRule.seed);
+
+        long result = db.insert(TABLE_NAME6, null, contentValues);
+        (db).close();
+        if (result == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
     public boolean addPriority(Priority priority) {
         if(getPriority(priority.name).name!=null)
         {
@@ -332,6 +359,26 @@ public class SqliteDB extends SQLiteOpenHelper {
         return capturedRule;
     }
 
+    public CapturedRule getWaitCapturedRule(int seed)
+    {
+        String str_seed=Integer.toString(seed);
+        SQLiteDatabase db = this.getWritableDatabase();
+        String nameRule_0 = null;
+        String smsText_1 = null;
+        int seed_2 = 0;
+        String selectQuery = "SELECT * from "+TABLE_NAME6+" where SEED = '" + str_seed+ "'";
+        Cursor cursor=(db).rawQuery(selectQuery,null);
+        while (cursor.moveToNext()) {
+            nameRule_0=cursor.getString(1);
+            smsText_1=cursor.getString(2);
+            seed_2=cursor.getInt(3);
+        }
+        CapturedRule capturedRule = new CapturedRule(nameRule_0,smsText_1,seed_2);
+        cursor.close();
+        (db).close();
+        return capturedRule;
+    }
+
     public Priority getPriority(String name)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -386,6 +433,13 @@ public class SqliteDB extends SQLiteOpenHelper {
         db.delete(TABLE_NAME3, "seed = ?", new String[]{str_seed});
     }
 
+    public void deleteWaitCapturedRule(int seed)
+    {
+        String str_seed = Integer.toString(seed);
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME6, "seed = ?", new String[]{str_seed});
+    }
+
     public ArrayList<Priority> getAllPriority()
     {
         ArrayList<Priority> list= new ArrayList<Priority>();
@@ -417,6 +471,28 @@ public class SqliteDB extends SQLiteOpenHelper {
         String smsText_1 = null;
         int seed_2 = 0;
         String selectQuery = "SELECT * from "+TABLE_NAME3;
+        Cursor cursor=(db).rawQuery(selectQuery,null);
+        while (cursor.moveToNext()) {
+            nameRule_0=cursor.getString(1);
+            smsText_1=cursor.getString(2);
+            seed_2=cursor.getInt(3);
+
+            CapturedRule capturedRule = new CapturedRule(nameRule_0,smsText_1,seed_2);
+            list.add(capturedRule);
+        }
+        cursor.close();
+        (db).close();
+        return list;
+    }
+
+    public ArrayList<CapturedRule> getAllWaitCapturedRule()
+    {
+        ArrayList<CapturedRule> list= new ArrayList<CapturedRule>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        String nameRule_0 = null;
+        String smsText_1 = null;
+        int seed_2 = 0;
+        String selectQuery = "SELECT * from "+TABLE_NAME6;
         Cursor cursor=(db).rawQuery(selectQuery,null);
         while (cursor.moveToNext()) {
             nameRule_0=cursor.getString(1);
