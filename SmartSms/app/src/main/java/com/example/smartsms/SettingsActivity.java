@@ -1,6 +1,9 @@
 package com.example.smartsms;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
+import android.util.Log;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -19,6 +22,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     ImageButton returnButton;
     Button changeButton;
     private SqliteDB dataBase;
+    private Uri uri;
+    private static final int REQUEST_CODE = 43;
     int status;
     boolean statusBoolean;
     private ArrayList<Priority> priorities;
@@ -89,6 +94,35 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         super.onBackPressed();
     }
 
+    private void startSearch()
+    {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.setType("*/*");//db files other options application/x-sqlite3 and application/x-paradox
+        intent.addCategory((Intent.CATEGORY_OPENABLE));
+        startActivityForResult(intent,REQUEST_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode,resultCode,data);
+
+        if(data != null)
+        {
+            uri = data.getData();
+            try {
+                Log.d("URI",uri.getPath().toString());
+                dataBase.importDatabase(uri.toString());
+
+            } catch (
+
+                    IOException ie) {
+                ie.printStackTrace();
+            }
+        }
+    }
+
+
     @Override
     public void onClick(View v) {
         int tmpId = v.getId();
@@ -115,18 +149,12 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
         if(tmpId==R.id.buttonImport)
         {
-            try {
-                dataBase.importDatabase("/data/data/com.example.smartsms/databases/Sample.db");
+            startSearch();
 
-            } catch (
-
-                    IOException ie) {
-                ie.printStackTrace();
-            }
         }
         if (tmpId == R.id.buttonExport) {
             try {
-                dataBase.exportDatabase("/data/data/com.example.smartsms/databases/SampleExport.db");
+                dataBase.exportDatabase("/data/media/0/Download/Sample.db");
 
             } catch (
                     IOException ie) {

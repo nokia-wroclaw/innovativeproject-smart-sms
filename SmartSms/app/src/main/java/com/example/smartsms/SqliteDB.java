@@ -177,8 +177,10 @@ public class SqliteDB extends SQLiteOpenHelper {
     {
         close();
         File newDb = new File(dbPath);
+        newDb.createNewFile();
         File oldDb = new File(DB_FILEPATH);
         if (newDb.exists()) {
+
             FileUtils.copyFile(new FileInputStream(oldDb), new FileOutputStream(newDb));
             getWritableDatabase().close();
             return true;
